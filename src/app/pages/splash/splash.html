@@ -1,0 +1,84 @@
+<div [class.opacity-0]="isLeaving" class="relative min-h-screen bg-gray-950 flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500">
+
+    <!-- Grid lines -->
+    <div class="absolute inset-0 pointer-events-none"
+        style="background-image: linear-gradient(rgba(52,211,153,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,.04) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);">
+    </div>
+
+    <!-- Orbs -->
+    <div class="absolute w-[600px] h-[600px] rounded-full pointer-events-none orb-pulse"
+        style="background: radial-gradient(circle, rgba(52,211,153,.07) 0%, transparent 70%); filter: blur(90px); top: -200px; left: 50%; transform: translateX(-50%);">
+    </div>
+    <div class="absolute w-[520px] h-[520px] rounded-full pointer-events-none orb-1"
+        style="background: radial-gradient(circle, rgba(52,211,153,.32) 0%, transparent 70%); filter: blur(72px); top: -160px; left: -80px;">
+    </div>
+    <div class="absolute w-[380px] h-[380px] rounded-full pointer-events-none orb-2"
+        style="background: radial-gradient(circle, rgba(59,130,246,.18) 0%, transparent 70%); filter: blur(64px); bottom: -100px; right: -60px;">
+    </div>
+    <div class="absolute w-[220px] h-[220px] rounded-full pointer-events-none orb-3"
+        style="background: radial-gradient(circle, rgba(52,211,153,.22) 0%, transparent 70%); filter: blur(48px); top: 55%; left: 62%;">
+    </div>
+
+    <!-- Particles -->
+    <div class="particle absolute rounded-full pointer-events-none"
+        style="width:5px;height:5px;background:rgba(52,211,153,.5);bottom:25%;left:28%;animation-duration:8s;animation-delay:0s">
+    </div>
+    <div class="particle absolute rounded-full pointer-events-none"
+        style="width:4px;height:4px;background:rgba(52,211,153,.4);bottom:40%;left:45%;animation-duration:11s;animation-delay:2s">
+    </div>
+    <div class="particle absolute rounded-full pointer-events-none"
+        style="width:6px;height:6px;background:rgba(99,179,237,.35);bottom:18%;left:62%;animation-duration:9s;animation-delay:4s">
+    </div>
+    <div class="particle absolute rounded-full pointer-events-none"
+        style="width:4px;height:4px;background:rgba(52,211,153,.45);bottom:55%;left:18%;animation-duration:13s;animation-delay:1s">
+    </div>
+    <div class="particle absolute rounded-full pointer-events-none"
+        style="width:5px;height:5px;background:rgba(52,211,153,.4);bottom:12%;left:75%;animation-duration:7s;animation-delay:3s">
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col items-center">
+
+        <!-- Icon -->
+        <div class="icon-in w-[88px] h-[88px] rounded-[28px] flex items-center justify-center relative overflow-hidden"
+            style="background: linear-gradient(135deg, #34d399, #059669); box-shadow: 0 0 48px rgba(52,211,153,.45), 0 0 96px rgba(52,211,153,.18);">
+            <div class="absolute inset-0 pointer-events-none"
+                style="background: linear-gradient(135deg, rgba(255,255,255,.22), transparent 60%);"></div>
+            <svg viewBox="0 0 64 64" class="w-11 h-11 relative z-10" style="fill: rgba(2,44,34,.85)">
+                <path
+                    d="M32 8C18 8 10 20 10 32c0 8 4 15 10 20 1-6 3-11 7-15-2 5-2 10 0 15 4 2 8 3 12 3 14 0 22-10 22-23C61 18 48 8 32 8z" />
+                <path d="M32 42 Q32 55 28 60" stroke="rgba(2,44,34,.5)" stroke-width="2.5" stroke-linecap="round"
+                    fill="none" />
+            </svg>
+        </div>
+
+        <!-- Logotype -->
+        <div class="text-in font-extrabold text-white tracking-tight mt-6"
+            style="font-family:'Syne',sans-serif; font-size:46px; letter-spacing:-1.5px; animation-delay:.2s">
+            Habit<span class="text-emerald-400">Flow</span>
+        </div>
+
+        <!-- Tagline -->
+        <div class="text-in font-bold uppercase tracking-[.28em] mt-3"
+            style="font-family:'Syne',sans-serif; font-size:13px; color:rgba(52,211,153,.65); animation-delay:.4s">
+            construa hábitos que duram
+        </div>
+
+        <!-- Loader -->
+        <div class="text-in mt-14 w-[200px] h-[2px] rounded-full overflow-hidden"
+            style="background:rgba(255,255,255,.08); animation-delay:.6s">
+            <div class="loader-fill h-full rounded-full" style="background: linear-gradient(90deg,#34d399,#059669)">
+            </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="text-in flex gap-1.5 mt-4" style="animation-delay:.6s">
+            <div class="blink-dot w-[5px] h-[5px] rounded-full" style="background:rgba(52,211,153,.35)"></div>
+            <div class="blink-dot w-[5px] h-[5px] rounded-full"
+                style="background:rgba(52,211,153,.35);animation-delay:.2s"></div>
+            <div class="blink-dot w-[5px] h-[5px] rounded-full"
+                style="background:rgba(52,211,153,.35);animation-delay:.4s"></div>
+        </div>
+
+    </div>
+</div>

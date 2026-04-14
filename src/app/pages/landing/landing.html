@@ -1,0 +1,172 @@
+<div (mousemove)="onMouseMove($event)"
+    class="min-h-screen bg-gray-950 text-white flex flex-col relative overflow-hidden z-10 parallax">
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+
+        <!-- Orb 1 — grande verde esmeralda (topo esquerda) -->
+        <div class="orb-1 absolute w-[600px] h-[600px] bg-emerald-500/25 blur-[80px] rounded-full"
+            [style.transform]="'translateY(var(--f1-y, 0px)) translateX(var(--f1-x, 0px)) ' + getTransform(20, 30)"
+            style="top: -100px; left: 15%;">
+        </div>
+
+        <!-- Orb 2 — azul (canto inferior direito) -->
+        <div class="orb-2 absolute w-[500px] h-[500px] bg-blue-500/15 blur-[80px] rounded-full"
+            [style.transform]="getTransform(-30, 20)" style="bottom: -100px; right: 5%;">
+        </div>
+
+        <!-- Orb 3 — esmeralda médio (centro-direita) -->
+        <div class="orb-3 absolute w-[320px] h-[320px] bg-emerald-400/20 blur-[60px] rounded-full"
+            [style.transform]="getTransform(15, -25)" style="top: 38%; left: 58%;">
+        </div>
+
+        <!-- Orb 4 — ciano sutil (centro-esquerda) -->
+        <div class="orb-4 absolute w-[250px] h-[250px] bg-cyan-400/12 blur-[50px] rounded-full"
+            [style.transform]="getTransform(10, 10)" style="top: 55%; left: 10%;">
+        </div>
+
+        <!-- Orb 5 — verde lima pequeno (topo direita) -->
+        <div class="orb-5 absolute w-[180px] h-[180px] bg-green-300/15 blur-[40px] rounded-full"
+            [style.transform]="getTransform(-10, 15)" style="top: 12%; right: 18%;">
+        </div>
+
+        <!-- Partículas flutuantes -->
+        <div class="particle absolute w-1.5 h-1.5 bg-emerald-400/50 rounded-full"
+            style="bottom: 20%; left: 25%; animation-duration: 8s; animation-delay: 0s;"></div>
+        <div class="particle absolute w-1 h-1 bg-emerald-300/40 rounded-full"
+            style="bottom: 35%; left: 42%; animation-duration: 11s; animation-delay: 2s;"></div>
+        <div class="particle absolute w-2 h-2 bg-cyan-400/30 rounded-full"
+            style="bottom: 15%; left: 68%; animation-duration: 9s; animation-delay: 4s;"></div>
+        <div class="particle absolute w-1 h-1 bg-green-300/50 rounded-full"
+            style="bottom: 50%; left: 80%; animation-duration: 13s; animation-delay: 1s;"></div>
+        <div class="particle absolute w-1.5 h-1.5 bg-emerald-500/40 rounded-full"
+            style="bottom: 10%; left: 55%; animation-duration: 7s; animation-delay: 5s;"></div>
+        <div class="particle absolute w-1 h-1 bg-blue-400/30 rounded-full"
+            style="bottom: 40%; left: 15%; animation-duration: 10s; animation-delay: 3s;"></div>
+
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="flex justify-between items-center px-8 py-5 backdrop-blur-md bg-white/5 border-b border-white/10">
+
+        <h1 class="text-2xl font-bold tracking-tight">
+            Habit<span class="text-emerald-400">Flow</span>
+        </h1>
+
+        <div class="flex gap-3">
+            <button (click)="goToLogin()"
+                class="px-4 py-2 text-sm text-gray-300 hover:text-white transition cursor-pointer">
+                Login
+            </button>
+
+            <button (click)="goToRegister()"
+                class="bg-emerald-500 hover:bg-emerald-400 px-5 py-2 rounded-lg text-sm font-semibold shadow-lg shadow-emerald-500/20 transition hover:scale-105 cursor-pointer">
+                Criar conta
+            </button>
+        </div>
+
+    </header>
+
+    <!-- HERO -->
+    <main class="flex-1 flex flex-col justify-center items-center text-center px-6">
+
+        <h2 @fadeUp class="text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
+            Construa hábitos que
+            <span class="text-emerald-400">transformam sua vida</span>
+        </h2>
+
+        <p @fadeUp class="mt-6 text-gray-400 max-w-xl text-lg">
+            Organize sua rotina, acompanhe seu progresso e mantenha consistência todos os dias.
+        </p>
+
+        <div class="mt-10 flex gap-4">
+
+            <button (click)="goToRegister()"
+                class="bg-emerald-500 hover:bg-emerald-400 px-8 py-4 rounded-xl font-semibold transition transform hover:scale-105 shadow-xl shadow-emerald-500/20 cursor-pointer">
+                Começar agora
+            </button>
+
+            <button (click)="goToLogin()"
+                class="border border-white/10 hover:border-white/30 px-8 py-4 rounded-xl font-semibold transition backdrop-blur-sm bg-white/5 hover:bg-white/10 cursor-pointer">
+                Já tenho conta
+            </button>
+
+        </div>
+
+    </main>
+
+    <!-- FEATURES -->
+    <section class="px-8 pb-20">
+
+        <div class="text-center mb-14">
+            <h3 class="text-3xl font-bold">
+                Tudo que você precisa para criar consistência
+            </h3>
+            <p class="text-gray-400 mt-3">
+                Simples, poderoso e feito para durar
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- CARD 1 -->
+            <div @fadeUp class="group bg-white/5 p-7 rounded-2xl border border-white/10 backdrop-blur-md 
+      hover:scale-[1.04] hover:border-emerald-400/40 transition-all duration-300 relative overflow-hidden">
+
+                <!-- glow hover -->
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-emerald-500/10 blur-2xl">
+                </div>
+
+                <div class="text-3xl mb-4">📊</div>
+
+                <h3 class="text-lg font-semibold mb-2">
+                    Progresso visual
+                </h3>
+
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Acompanhe seus hábitos com métricas claras e veja sua evolução dia após dia.
+                </p>
+
+            </div>
+
+            <!-- CARD 2 -->
+            <div @fadeUp class="group bg-white/5 p-7 rounded-2xl border border-white/10 backdrop-blur-md 
+      hover:scale-[1.04] hover:border-orange-400/40 transition-all duration-300 relative overflow-hidden">
+
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-orange-500/10 blur-2xl">
+                </div>
+
+                <div class="text-3xl mb-4">🔥</div>
+
+                <h3 class="text-lg font-semibold mb-2">
+                    Streaks inteligentes
+                </h3>
+
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Mantenha sequências e receba motivação para não quebrar seu ritmo.
+                </p>
+
+            </div>
+
+            <!-- CARD 3 -->
+            <div @fadeUp class="group bg-white/5 p-7 rounded-2xl border border-white/10 backdrop-blur-md 
+      hover:scale-[1.04] hover:border-blue-400/40 transition-all duration-300 relative overflow-hidden">
+
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-blue-500/10 blur-2xl">
+                </div>
+
+                <div class="text-3xl mb-4">⚡</div>
+
+                <h3 class="text-lg font-semibold mb-2">
+                    Foco total
+                </h3>
+
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Interface minimalista para você focar no que realmente importa: consistência.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
