@@ -1,0 +1,73 @@
+<div class="flex flex-col gap-8">
+
+    <!-- HEADER -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold">Seus hábitos</h1>
+            <p class="text-white/40 text-sm mt-1">
+                Gerencie e acompanhe sua rotina diária
+            </p>
+        </div>
+
+        <button
+            class="bg-emerald-500 hover:bg-emerald-400 px-5 py-2 rounded-lg text-sm font-semibold shadow-lg shadow-emerald-500/20 transition hover:scale-105">
+            + Novo hábito
+        </button>
+    </div>
+
+    <!-- LISTA -->
+    <div class="flex flex-col gap-4">
+
+        <!-- HABIT ITEM -->
+        <div
+            class="group flex items-center justify-between p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-xl hover:bg-white/[0.06] transition-all">
+
+            <!-- ESQUERDA -->
+            <div class="flex items-center gap-4">
+
+                <!-- CHECK -->
+                <input type="checkbox" class="w-5 h-5 accent-emerald-400 cursor-pointer">
+
+                <!-- INFO -->
+                <div>
+                    <h3 class="font-medium">Beber 2L de água</h3>
+                    <p class="text-xs text-white/40">Meta diária</p>
+                </div>
+
+            </div>
+
+            <!-- DIREITA -->
+            <div class="flex items-center gap-4">
+
+                <span class="text-xs text-white/40">💧</span>
+
+                <button class="opacity-0 group-hover:opacity-100 text-red-400 text-xs transition hover:underline">
+                    Remover
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- COMPLETO -->
+        <div
+            class="group flex items-center justify-between p-5 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl opacity-60">
+
+            <div class="flex items-center gap-4">
+
+                <input type="checkbox" checked class="w-5 h-5 accent-emerald-400 cursor-pointer">
+
+                <div>
+                    <h3 class="font-medium line-through">Treinar</h3>
+                    <p class="text-xs text-white/40">Academia</p>
+                </div>
+
+            </div>
+
+            <span class="text-xs text-white/40">🏋️</span>
+
+        </div>
+
+    </div>
+
+</div>

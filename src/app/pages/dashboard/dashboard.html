@@ -1,0 +1,142 @@
+<div class="flex flex-col gap-8">
+
+    <!-- HEADER -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold">Bem-vindo de volta, Matheus 👋</h1>
+            <p class="text-white/40 text-sm mt-1">
+                Aqui está seu progresso de hoje
+            </p>
+        </div>
+
+        <div class="text-sm text-white/40">
+            {{ today }}
+        </div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- CARD -->
+        <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 backdrop-blur-xl
+                hover:bg-white/[0.06] transition-all">
+
+            <p class="text-white/40 text-sm">Hábitos concluídos</p>
+            <h2 class="text-3xl font-bold mt-2">5 / 8</h2>
+
+            <div class="mt-4 h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-400 rounded-full w-[62%]"></div>
+            </div>
+        </div>
+
+        <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 backdrop-blur-xl
+                hover:bg-white/[0.06] transition-all">
+
+            <p class="text-white/40 text-sm">Streak atual</p>
+            <h2 class="text-3xl font-bold mt-2">12 dias 🔥</h2>
+        </div>
+
+        <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 backdrop-blur-xl
+                hover:bg-white/[0.06] transition-all">
+
+            <p class="text-white/40 text-sm">Consistência</p>
+            <h2 class="text-3xl font-bold mt-2">78%</h2>
+        </div>
+
+    </div>
+
+    <!-- HABITS -->
+    <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 backdrop-blur-xl">
+
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Seus hábitos hoje</h3>
+            <button class="text-emerald-400 text-sm hover:underline">+ Novo hábito</button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+            <!-- ITEM -->
+            <div
+                class="flex items-center justify-between px-4 py-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] transition">
+
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" class="accent-emerald-400 w-4 h-4">
+                    <span>Beber 2L de água</span>
+                </div>
+
+                <span class="text-xs text-white/40">💧</span>
+            </div>
+
+            <div
+                class="flex items-center justify-between px-4 py-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] transition">
+
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" checked class="accent-emerald-400 w-4 h-4">
+                    <span class="line-through text-white/40">Treinar</span>
+                </div>
+
+                <span class="text-xs text-white/40">🏋️</span>
+            </div>
+
+            <div
+                class="flex items-center justify-between px-4 py-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] transition">
+
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" class="accent-emerald-400 w-4 h-4">
+                    <span>Ler 10 páginas</span>
+                </div>
+
+                <span class="text-xs text-white/40">📖</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 backdrop-blur-xl">
+
+        <h3 class="text-lg font-semibold mb-4">Progresso semanal</h3>
+
+        <div class="flex items-end gap-4 h-40">
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[40%]"></div>
+                <span class="text-xs text-white/40">Seg</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[70%]"></div>
+                <span class="text-xs text-white/40">Ter</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[55%]"></div>
+                <span class="text-xs text-white/40">Qua</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[80%]"></div>
+                <span class="text-xs text-white/40">Qui</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[60%]"></div>
+                <span class="text-xs text-white/40">Sex</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[30%]"></div>
+                <span class="text-xs text-white/40">Sáb</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-6 bg-emerald-400/70 rounded-md h-[50%]"></div>
+                <span class="text-xs text-white/40">Dom</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
