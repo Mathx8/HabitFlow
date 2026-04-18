@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Landing } from './pages/landing/landing';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
+import { ConfirmEmail } from './pages/confirm-email/confirm-email';
 import { Splash } from './pages/splash/splash';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { MainLayout } from './components/main-layout/main-layout';
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'home', component: Landing },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+  { path: 'confirm-email', component: ConfirmEmail },
   {
     path: '',
     component: MainLayout,

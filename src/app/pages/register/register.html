@@ -105,8 +105,8 @@
                 <span class="flex-1 h-px bg-white/[0.08]"></span>
             </div>
 
-            <!-- Nome + Sobrenome -->
-            <div class="mb-4">
+            <!-- Nome -->
+            <div class="grid grid-cols-2 gap-3 mb-4">
                 <div>
                     <label
                         class="block text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-2">Nome</label>
@@ -118,6 +118,20 @@
                             <circle cx="12" cy="7" r="4" />
                         </svg>
                         <input type="text" placeholder="Seu nome" [(ngModel)]="nome"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 pl-10 pr-3 py-3 outline-none transition-all duration-200 focus:border-emerald-500/50 focus:bg-emerald-500/[0.04] focus:ring-[3px] focus:ring-emerald-500/[0.10]" />
+                    </div>
+                </div>
+                <div>
+                    <label
+                        class="block text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-2">Username</label>
+                    <div class="relative">
+                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none w-4 h-4"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <input type="text" placeholder="Seu username" [(ngModel)]="username"
                             class="w-full bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 pl-10 pr-3 py-3 outline-none transition-all duration-200 focus:border-emerald-500/50 focus:bg-emerald-500/[0.04] focus:ring-[3px] focus:ring-emerald-500/[0.10]" />
                     </div>
                 </div>
@@ -197,12 +211,20 @@
             </label>
 
             <!-- Submit -->
-            <button (click)="onRegister()"
-                class="relative w-full mt-5 bg-gradient-to-br from-emerald-400 to-emerald-600 text-emerald-950 font-bold text-[15px] py-3.5 rounded-xl shadow-[0_4px_24px_rgba(52,211,153,0.28)] hover:shadow-[0_8px_32px_rgba(52,211,153,0.38)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 overflow-hidden group cursor-pointer">
-                <span
-                    class="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
-                Criar conta
+            <button (click)="onRegister()" [disabled]="loading" class="relative w-full mt-5 bg-gradient-to-br from-emerald-400 to-emerald-600 text-emerald-950 font-bold text-[15px] py-3.5 rounded-xl shadow-[0_4px_24px_rgba(52,211,153,0.28)] hover:shadow-[0_8px_32px_rgba(52,211,153,0.38)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 overflow-hidden group cursor-pointer
+         disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                <span *ngIf="!loading">Criar conta</span>
+                <span *ngIf="loading" class="flex items-center justify-center gap-2">
+                    <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path
+                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                    </svg>
+                    Criando conta...
+                </span>
             </button>
+
+            <p *ngIf="error" class="text-[13px] text-red-400 text-center mt-4">{{ error }}</p>
 
             <!-- Footer -->
             <p class="text-center mt-5 text-sm text-gray-400">

@@ -1,0 +1,151 @@
+<div (mousemove)="parallax.onMouseMove($event)"
+    class="min-h-screen bg-gray-950 text-white flex items-center justify-center px-4 py-10 relative overflow-hidden z-10">
+
+    <!-- Orbs -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="orb-1 absolute w-[600px] h-[600px] bg-emerald-500/25 blur-[80px] rounded-full"
+            [style.transform]="parallax.getTransform(20, 30)" style="top: -100px; left: 15%;"></div>
+        <div class="orb-2 absolute w-[500px] h-[500px] bg-blue-500/15 blur-[80px] rounded-full"
+            [style.transform]="parallax.getTransform(-30, 20)" style="bottom: -100px; right: 5%;"></div>
+        <div class="orb-3 absolute w-[280px] h-[280px] bg-emerald-400/20 blur-[60px] rounded-full"
+            [style.transform]="parallax.getTransform(15, -25)" style="top: 40%; left: 60%;"></div>
+
+        <!-- Partículas -->
+        <div class="particle absolute w-1.5 h-1.5 bg-emerald-400/50 rounded-full"
+            style="bottom:20%;left:25%;animation-duration:8s;animation-delay:0s"></div>
+        <div class="particle absolute w-1 h-1 bg-emerald-300/40 rounded-full"
+            style="bottom:40%;left:65%;animation-duration:11s;animation-delay:2s"></div>
+        <div class="particle absolute w-1.5 h-1.5 bg-cyan-400/30 rounded-full"
+            style="bottom:15%;left:70%;animation-duration:9s;animation-delay:4s"></div>
+    </div>
+
+    <div class="w-full max-w-md relative z-10">
+        <div
+            class="relative bg-white/[0.04] border border-white/10 rounded-3xl px-9 pt-10 pb-9 backdrop-blur-2xl shadow-[0_40px_80px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.04)] overflow-hidden">
+
+            <!-- top glow -->
+            <div
+                class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent">
+            </div>
+
+            <!-- Logo -->
+            <div (click)="auth.goToHome()" class="group flex items-center gap-2 mb-7 cursor-pointer">
+                <div
+                    class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.35)] transition-all duration-300 group-hover:shadow-[0_0_18px_rgba(52,211,153,0.5)] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none">
+                    </div>
+                    <svg viewBox="0 0 64 64" class="w-5 h-5 relative z-10" style="fill:rgba(2,44,34,.85)">
+                        <path
+                            d="M32 8C18 8 10 20 10 32c0 8 4 15 10 20 1-6 3-11 7-15-2 5-2 10 0 15 4 2 8 3 12 3 14 0 22-10 22-23C61 18 48 8 32 8z" />
+                        <path d="M32 42 Q32 55 28 60" stroke="rgba(2,44,34,.5)" stroke-width="2.5"
+                            stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+                <span
+                    class="text-xl font-extrabold tracking-tight select-none group-hover:tracking-wide transition-all duration-300">
+                    Habit<span class="text-emerald-400 group-hover:text-emerald-300 transition-colors">Flow</span>
+                </span>
+            </div>
+
+            <!-- Ícone de envelope -->
+            <div class="flex justify-center mb-6">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center">
+                    <svg class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Heading -->
+            <h2 class="text-2xl font-bold tracking-tight leading-snug mb-1 text-center">Verifique seu e-mail</h2>
+            <p class="text-sm text-gray-400 font-light mb-7 text-center leading-relaxed">
+                Enviamos um código de 6 dígitos para<br>
+                <span class="text-emerald-400 font-medium">{{ email }}</span>
+            </p>
+
+            <!-- Feedback de erro -->
+            <div *ngIf="error"
+                class="flex items-center gap-2.5 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 mb-4">
+                <svg class="w-4 h-4 text-red-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <p class="text-sm text-red-400">{{ error }}</p>
+            </div>
+
+            <!-- Feedback de sucesso (reenvio) -->
+            <div *ngIf="success"
+                class="flex items-center gap-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3 mb-4">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                <p class="text-sm text-emerald-400">{{ success }}</p>
+            </div>
+
+            <!-- Input do código -->
+            <div class="mb-6">
+                <label class="block text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-2">
+                    Código de Verificação
+                </label>
+                <div class="relative">
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none w-4 h-4"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    <input type="text" placeholder="000000" [(ngModel)]="codigo" maxlength="6" inputmode="numeric"
+                        (keyup.enter)="onConfirm()"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl text-center text-2xl tracking-[0.6em] font-bold text-white placeholder-gray-600 py-4 outline-none transition-all duration-200 focus:border-emerald-500/50 focus:bg-emerald-500/[0.04] focus:ring-[3px] focus:ring-emerald-500/[0.10]" />
+                </div>
+                <p class="text-[11px] text-gray-500 text-center mt-2">O código expira em 15 minutos</p>
+            </div>
+
+            <!-- Botão confirmar -->
+            <button (click)="onConfirm()" [disabled]="isLoading || !codigo.trim()"
+                class="relative w-full bg-gradient-to-br from-emerald-400 to-emerald-600 text-emerald-950 font-bold text-[15px] py-3.5 rounded-xl shadow-[0_4px_24px_rgba(52,211,153,0.28)] hover:shadow-[0_8px_32px_rgba(52,211,153,0.38)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                <span
+                    class="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
+
+                <span *ngIf="!isLoading">Confirmar e-mail</span>
+                <span *ngIf="isLoading" class="flex items-center justify-center gap-2">
+                    <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" />
+                    </svg>
+                    Confirmando...
+                </span>
+            </button>
+
+            <!-- Reenviar -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-400">
+                    Não recebeu o código?
+                    <button (click)="onResend()" [disabled]="resendCooldown > 0"
+                        class="text-emerald-400 font-medium hover:underline transition-all ml-1 disabled:text-gray-600 disabled:no-underline disabled:cursor-not-allowed">
+                        {{ resendCooldown > 0 ? 'Aguarde ' + resendCooldown + 's' : 'Reenviar código' }}
+                    </button>
+                </p>
+            </div>
+
+            <!-- Voltar -->
+            <div class="mt-6 pt-5 border-t border-white/[0.07] text-center">
+                <button (click)="auth.goToLogin()"
+                    class="text-xs text-gray-500 hover:text-white transition-colors flex items-center gap-1.5 mx-auto">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 5l-7 7 7 7" />
+                    </svg>
+                    Voltar para o login
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

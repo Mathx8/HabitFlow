@@ -13,6 +13,10 @@ import { Icons } from '../../services/icons';
 export class Navbar {
   constructor(private auth: Auth, public icons: Icons) { }
 
+  get usuario() {
+    return this.auth.getUser();
+  }
+
   logout() {
     this.auth.logout();
   }

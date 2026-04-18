@@ -19,8 +19,8 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/api/Auth/login`, { email, senha });
   }
 
-  confirmEmail(email: string, token: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/Auth/confirmar-email`, { email, token });
+  confirmEmail(email: string, codigo: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Auth/confirmar-email`, { email, codigo });
   }
 
   reenviarCodigo(email: string): Observable<any> {

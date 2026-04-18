@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../services/auth';
+import { ApiService } from '../../services/api';
 import { Parallax } from '../../services/parallax';
 
 @Component({
@@ -11,10 +12,13 @@ import { Parallax } from '../../services/parallax';
 })
 export class Register {
   nome = '';
+  username = '';
   email = '';
   senha = '';
   confirmPassword = '';
   acceptedTerms = false;
+  loading = false;
+  error = '';
 
   strengthColors = Array(4).fill('rgba(255,255,255,0.08)');
   strengthLabel = 'Digite uma senha';
@@ -23,7 +27,7 @@ export class Register {
   private readonly COLORS = ['#ef4444', '#f97316', '#eab308', '#34d399'];
   private readonly LABELS = ['Muito fraca', 'Fraca', 'Média', 'Forte'];
 
-  constructor(private auth: Auth, public parallax: Parallax) { }
+  constructor(private auth: Auth, private api: ApiService, public parallax: Parallax) { }
 
   checkStrength() {
     const v = this.senha;
@@ -56,9 +60,22 @@ export class Register {
       alert('As senhas não coincidem.');
       return;
     }
-    // TODO: integrar com serviço de autenticação
-    console.log('Register:', this.nome, this.email);
+
+    this.loading = true;
+    this.error = '';
+
+    this.api.register(this.nome, this.username, this.email, this.senha).subscribe({
+      next: () => {
+        // API envia e-mail de confirmação — redireciona para tela de código
+        this.auth.goToConfirm(this.email);
+      },
+      error: (err) => {
+        this.error = err.error?.message ?? 'Erro ao criar conta. Tente novamente.';
+        this.loading = false;
+      }
+    });
   }
+
 
   goToHome() {
     this.auth.goToHome();
@@ -68,4 +85,3 @@ export class Register {
     this.auth.goToLogin();
   }
 }
-
