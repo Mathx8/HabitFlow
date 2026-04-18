@@ -25,12 +25,7 @@
             <div class="w-9 h-9 rounded-[11px] flex-shrink-0 flex items-center justify-center relative overflow-hidden shadow-[0_0_20px_rgba(52,211,153,.35)]"
                 style="background:linear-gradient(135deg,#34d399,#059669)">
                 <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
-                <svg class="w-5 h-5 relative z-10" style="fill:rgba(2,44,34,.85)" viewBox="0 0 64 64">
-                    <path
-                        d="M32 8C18 8 10 20 10 32c0 8 4 15 10 20 1-6 3-11 7-15-2 5-2 10 0 15 4 2 8 3 12 3 14 0 22-10 22-23C61 18 48 8 32 8z" />
-                    <path d="M32 42 Q32 55 28 60" stroke="rgba(2,44,34,.5)" stroke-width="2.5" stroke-linecap="round"
-                        fill="none" />
-                </svg>
+                <div class="w-5 h-5 relative z-10" [innerHTML]="icons.logo"></div>
             </div>
             <span class="text-[19px] font-extrabold tracking-tight" style="font-family:'Syne',sans-serif">
                 Habit<span class="text-emerald-400 group-hover:text-emerald-300 transition-colors">Flow</span>
@@ -47,13 +42,7 @@
                 class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
                 <div
                     class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7" rx="1" />
-                        <rect x="14" y="3" width="7" height="7" rx="1" />
-                        <rect x="3" y="14" width="7" height="7" rx="1" />
-                        <rect x="14" y="14" width="7" height="7" rx="1" />
-                    </svg>
+                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.dashboard"></div>
                 </div>
                 Dashboard
             </button>
@@ -62,11 +51,7 @@
                 class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
                 <div
                     class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 11l3 3L22 4" />
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-                    </svg>
+                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.habitos"></div>
                 </div>
                 Hábitos
                 <span
@@ -77,24 +62,16 @@
                 class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
                 <div
                     class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                    </svg>
+                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.chat"></div>
                 </div>
-                Progresso
+                Chat
             </button>
 
             <button routerLink="/settings" routerLinkActive="active-nav"
                 class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
                 <div
                     class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3" />
-                        <path
-                            d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-                    </svg>
+                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.settings"></div>
                 </div>
                 Configurações
             </button>
@@ -118,21 +95,13 @@
                     <p class="text-[12.5px] font-medium text-white/85 truncate">Matheus</p>
                     <p class="text-[11px] text-white/30">Plano gratuito</p>
                 </div>
-                <svg class="w-3.5 h-3.5 text-white/25 flex-shrink-0" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                </svg>
+                <div class="w-3.5 h-3.5" [innerHTML]="icons.arrowRight"></div>
             </div>
 
             <!-- Logout -->
             <button (click)="logout()"
                 class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] text-red-400/60 hover:bg-red-500/[0.08] hover:text-red-400/90 transition-all duration-200 w-full">
-                <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                </svg>
+                <div class="w-[15px] h-[15px]" [innerHTML]="icons.logout"></div>
                 Sair da conta
             </button>
 

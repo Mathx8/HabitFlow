@@ -18,7 +18,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'habitos', component: Habitos },
-      // { path: 'analytics', component: Analytics },
+      // { path: 'chat', component: Chat },
     ]
   }
 ];
