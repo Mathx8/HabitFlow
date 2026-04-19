@@ -27,6 +27,7 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/api/Auth/reenviar-codigo`, { email });
   }
 
+
   createHabito(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/Habitos`, data);
   }
@@ -45,6 +46,55 @@ export class ApiService {
 
   deleteHabito(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/api/Habitos/${id}`);
+  }
+
+  createHabitoRecorde(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/HabitoRecorde`, data);
+  }
+
+  getHabitoRecordes(habitId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/HabitoRecorde/${habitId}`);
+  }
+
+  getHabitoCalendario(habitId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/HabitoRecorde/${habitId}/calendario`);
+  }
+
+  getHabitoRegistro(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/HabitoRecorde/registro/${id}`);
+  }
+
+  updateHabitoRecorde(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/api/HabitoRecorde/${id}`, data);
+  }
+
+  deleteHabitoRecorde(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/HabitoRecorde/${id}`);
+  }
+
+
+  createConquista(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Conquista`, data);
+  }
+
+  getMinhasConquistas(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Conquista/minhas`);
+  }
+
+  getConquistas(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Conquista`);
+  }
+
+  getConquistaById(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Conquista/${id}`);
+  }
+
+  updateConquista(id: string, data: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/api/Conquista/${id}`, data);
+  }
+
+  deleteConquista(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/Conquista/${id}`);
   }
   
 }

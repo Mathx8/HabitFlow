@@ -7,6 +7,7 @@ import { Splash } from './pages/splash/splash';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { MainLayout } from './components/main-layout/main-layout';
 import { Habitos } from './pages/habitos/habitos';
+import { Conquistas } from './pages/conquistas/conquistas';
 
 export const routes: Routes = [
   { path: '', component: Splash },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'habitos', component: Habitos },
+      { path: 'conquistas', component: Conquistas }
       // { path: 'chat', component: Chat },
     ]
   }

@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiService } from './api';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-
 @Injectable({ providedIn: 'root' })
 export class Auth {
 
-  constructor(private router: Router, private api: ApiService) { }
+  constructor(private router: Router, private api: ApiService, @Inject(PLATFORM_ID) private platformId: Object) { }
+
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
   goToHome() {
     this.router.navigate(['/home']);
@@ -31,18 +35,19 @@ export class Auth {
   }
 
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    if (this.isBrowser()) localStorage.setItem('token', token);
   }
 
   saveUser(usuario: any) {
-    localStorage.setItem('usuario', JSON.stringify(usuario));
+    if (this.isBrowser()) localStorage.setItem('usuario', JSON.stringify(usuario));
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return this.isBrowser() ? localStorage.getItem('token') : null;
   }
 
   getUser(): { id: string; nome: string; username: string; email: string } | null {
+    if (!this.isBrowser()) return null;
     const raw = localStorage.getItem('usuario');
     return raw ? JSON.parse(raw) : null;
   }
@@ -65,8 +70,10 @@ export class Auth {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
+    if (this.isBrowser()) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('usuario');
+    }
     this.goToLogin();
   }
 }

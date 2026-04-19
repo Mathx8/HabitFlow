@@ -134,17 +134,25 @@
                         class="w-full bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 pl-10 pr-4 py-3 outline-none transition-all duration-200 focus:border-emerald-500/50 focus:bg-emerald-500/[0.04] focus:ring-[3px] focus:ring-emerald-500/[0.10]" />
                 </div>
                 <div class="flex justify-end mt-2">
-                    <button class="text-xs text-gray-400 hover:text-emerald-400 transition-colors cursor-pointer">Esqueci minha
+                    <button
+                        class="text-xs text-gray-400 hover:text-emerald-400 transition-colors cursor-pointer">Esqueci
+                        minha
                         senha</button>
                 </div>
             </div>
 
             <!-- Submit -->
-            <button (click)="onLogin()"
-                class="relative w-full mt-5 bg-gradient-to-br from-emerald-400 to-emerald-600 text-emerald-950 font-bold text-[15px] py-3.5 rounded-xl shadow-[0_4px_24px_rgba(52,211,153,0.28)] hover:shadow-[0_8px_32px_rgba(52,211,153,0.38)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 overflow-hidden group cursor-pointer">
-                <span
-                    class="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
-                Entrar
+            <button (click)="onLogin()" [disabled]="loading" class="relative w-full mt-5 bg-gradient-to-br from-emerald-400 to-emerald-600 text-emerald-950 font-bold text-[15px] py-3.5 rounded-xl shadow-[0_4px_24px_rgba(52,211,153,0.28)] hover:shadow-[0_8px_32px_rgba(52,211,153,0.38)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 overflow-hidden group cursor-pointer
+         disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                <span *ngIf="!loading">Entrar</span>
+                <span *ngIf="loading" class="flex items-center justify-center gap-2">
+                    <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path
+                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                    </svg>
+                    Entrando...
+                </span>
             </button>
 
             <!-- Footer -->
