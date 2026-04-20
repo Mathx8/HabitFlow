@@ -5,7 +5,6 @@ import { ApiService } from '../../services/api';
 interface DiaCalendario {
   data: string;
   concluido: boolean;
-  quantidade: number;
 }
 
 interface Semana {
@@ -58,26 +57,28 @@ export class Calendario implements OnChanges {
   }
 
   buildCalendario(registros: any[]) {
-    // Mapeia registros por data
     const mapaRegistros = new Map<string, DiaCalendario>();
+
     for (const r of registros) {
       const data = (r.data ?? r.createdAt ?? '').split('T')[0];
       if (data) {
         mapaRegistros.set(data, {
           data,
-          concluido: r.concluido ?? false,
-          quantidade: r.quantidade ?? 0,
+          concluido: !!r.concluido,
         });
       }
     }
 
-    // Últimas 52 semanas (364 dias) + dias restantes desta semana
-    const hoje = new Date();
-    const diaSemanaHoje = hoje.getDay(); // 0=Dom
+    // ✅ Ordena datas da API
+    const datasOrdenadas = Array.from(mapaRegistros.keys()).sort();
 
-    // Começa no domingo mais antigo que cubra 52 semanas
-    const inicio = new Date(hoje);
-    inicio.setDate(hoje.getDate() - 52 * 7 - diaSemanaHoje);
+    if (datasOrdenadas.length === 0) {
+      this.semanas = [];
+      return;
+    }
+
+    const inicio = new Date(datasOrdenadas[0] + 'T00:00:00');
+    const fim = new Date(datasOrdenadas[datasOrdenadas.length - 1] + 'T00:00:00');
 
     const semanas: Semana[] = [];
     let semanaAtual: (DiaCalendario | null)[] = [];
@@ -85,14 +86,21 @@ export class Calendario implements OnChanges {
 
     const cursor = new Date(inicio);
 
-    while (cursor <= hoje) {
+    // 🔹 Alinha início para domingo
+    const diaSemanaInicio = inicio.getDay();
+
+    // preencher antes do primeiro dia
+    for (let i = 0; i < diaSemanaInicio; i++) {
+      semanaAtual.push(null);
+    }
+
+    while (cursor <= fim) {
       const dataStr = cursor.toISOString().split('T')[0];
       const registro = mapaRegistros.get(dataStr);
 
       const dia: DiaCalendario = registro ?? {
         data: dataStr,
         concluido: false,
-        quantidade: 0,
       };
 
       if (dia.concluido) this.totalConcluidos++;
@@ -107,7 +115,7 @@ export class Calendario implements OnChanges {
       cursor.setDate(cursor.getDate() + 1);
     }
 
-    // Preenche a última semana incompleta com nulls
+    // 🔹 Completa última semana
     if (semanaAtual.length > 0) {
       while (semanaAtual.length < 7) semanaAtual.push(null);
       semanas.push({ dias: semanaAtual });
@@ -133,24 +141,17 @@ export class Calendario implements OnChanges {
   }
 
   getCor(dia: DiaCalendario | null): string {
-    if (!dia || !dia.concluido) return 'rgba(255,255,255,0.06)';
-    return '#34d399';
-  }
-
-  getOpacity(dia: DiaCalendario | null): number {
-    if (!dia || !dia.concluido) return 1;
-    const q = dia.quantidade ?? 1;
-    if (q >= 4) return 1;
-    if (q === 3) return 0.85;
-    if (q === 2) return 0.65;
-    return 0.45;
+    if (!dia) return 'transparent';
+    return dia.concluido
+      ? '#22c55e'
+      : 'rgba(255,255,255,0.05)';
   }
 
   showTooltip(event: MouseEvent, dia: DiaCalendario | null) {
     if (!dia) return;
     const d = new Date(dia.data + 'T12:00:00');
     const label = d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' });
-    const status = dia.concluido ? `✅ Concluído (${dia.quantidade}x)` : '❌ Não realizado';
+    const status = dia.concluido ? '✅ Concluído' : '❌ Não realizado';
     this.tooltip = { texto: `${label} — ${status}`, x: event.offsetX, y: event.offsetY };
   }
 
