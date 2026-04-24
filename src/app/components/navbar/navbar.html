@@ -12,99 +12,124 @@
     </div>
 
     <!-- SIDEBAR -->
-    <aside
-        class="relative z-10 w-[240px] flex-shrink-0 flex flex-col p-4 bg-white/[0.03] border-r border-white/[0.08] backdrop-blur-2xl">
+    <!-- SIDEBAR COMPACTA -->
+    <aside class="fixed top-0 left-0 h-screen w-[72px] z-20
+           flex flex-col items-center py-4
+           bg-white/[0.02] border-r border-white/[0.06] backdrop-blur-xl">
 
-        <!-- top glow line -->
-        <div
-            class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent">
-        </div>
+        <!-- Top spacing -->
+        <div class="h-2"></div>
 
-        <!-- Logo -->
-        <div class="flex items-center gap-2.5 mb-8 px-1 cursor-pointer group">
-            <div class="w-9 h-9 rounded-[11px] flex-shrink-0 flex items-center justify-center relative overflow-hidden shadow-[0_0_20px_rgba(52,211,153,.35)]"
-                style="background:linear-gradient(135deg,#34d399,#059669)">
-                <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
-                <div class="w-5 h-5 relative z-10" [innerHTML]="icons.logo"></div>
-            </div>
-            <span class="text-[19px] font-extrabold tracking-tight" style="font-family:'Syne',sans-serif">
-                Habit<span class="text-emerald-400 group-hover:text-emerald-300 transition-colors">Flow</span>
-            </span>
-        </div>
+        <!-- NAV -->
+        <nav class="flex flex-col items-center gap-2 mt-2">
 
-        <!-- Nav label -->
-        <p class="text-[10px] font-medium uppercase tracking-[.12em] text-white/25 px-3 mb-1.5">Menu</p>
+            <!-- ITEM -->
+            <button routerLink="/dashboard" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
+                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
 
-        <!-- Nav -->
-        <nav class="flex flex-col gap-0.5">
+                <div class="w-5 h-5" [innerHTML]="icons.dashboard"></div>
 
-            <button routerLink="/dashboard" routerLinkActive="active-nav"
-                class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
-                <div
-                    class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.dashboard"></div>
-                </div>
-                Dashboard
+                <!-- Tooltip -->
+                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                       bg-gray-900 text-white opacity-0 group-hover:opacity-100
+                       transition whitespace-nowrap pointer-events-none">
+                    Dashboard
+                </span>
             </button>
 
-            <button routerLink="/habitos" routerLinkActive="active-nav"
-                class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
-                <div
-                    class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.habitos"></div>
-                </div>
-                Hábitos
-                <span
-                    class="ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-400/15 text-emerald-400">12</span>
+            <button routerLink="/habitos" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
+                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
+
+                <div class="w-5 h-5" [innerHTML]="icons.habitos"></div>
+
+                <!-- Badge -->
+                <span class="absolute -top-1 -right-1 text-[9px] px-1 rounded bg-emerald-400 text-black">
+                    12
+                </span>
+
+                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                         bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                    Hábitos
+                </span>
             </button>
 
-            <button routerLink="/conquistas" routerLinkActive="active-nav"
-                class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
-                <div
-                    class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.settings"></div>
-                </div>
-                Conquistas
+            <button routerLink="/conquistas" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
+                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
+
+                <div class="w-5 h-5" [innerHTML]="icons.settings"></div>
+
+                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                         bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                    Conquistas
+                </span>
             </button>
 
-            <button routerLink="/analytics" routerLinkActive="active-nav"
-                class="nav-item group flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] text-white/50 hover:bg-white/[0.06] hover:text-white/85 transition-all duration-200 w-full text-left relative">
-                <div
-                    class="w-8 h-8 rounded-[9px] flex items-center justify-center bg-white/5 group-hover:bg-white/[0.08] transition-colors flex-shrink-0">
-                    <div class="w-[15px] h-[15px]" [innerHTML]="icons.chat"></div>
-                </div>
-                Chat
+            <button routerLink="/analytics" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
+                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
+
+                <div class="w-5 h-5" [innerHTML]="icons.chat"></div>
+
+                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                         bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                    Chat
+                </span>
             </button>
 
         </nav>
 
-        <!-- Divider -->
-        <div class="h-px bg-white/[0.07] my-3"></div>
+        <!-- Spacer -->
+        <div class="flex-1"></div>
 
-        <!-- Footer -->
-        <div class="mt-auto flex flex-col gap-1.5">
+        <!-- USER -->
+        <div class="flex flex-col items-center gap-3 mb-2 relative">
 
-            <!-- User card -->
-            <div
-                class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.07] hover:bg-white/[0.07] hover:border-white/[0.12] cursor-pointer transition-all duration-200">
-                <div class="w-8 h-8 rounded-[10px] flex-shrink-0 flex items-center justify-center text-xs font-semibold text-emerald-400 border border-emerald-400/25"
-                    style="background:linear-gradient(135deg,rgba(52,211,153,.15),rgba(5,150,105,.25));font-family:'Syne',sans-serif">
-                    {{ usuario?.username?.charAt(0) }}
+            <!-- Avatar com dropdown -->
+            <div class="relative">
+                <button (click)="toggleMenu()" class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold
+                   text-emerald-400 border border-emerald-400/20 transition-all duration-200
+                   hover:border-emerald-400/50 hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] cursor-pointer"
+                    style="background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(5,150,105,.2));font-family:'Syne',sans-serif">
+                    {{ inicial }}
+                </button>
+
+                <!-- Dropdown -->
+                <div *ngIf="menuOpen" class="absolute bottom-full left-full ml-3 mb-0 w-44
+                   bg-gray-900 border border-white/10 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.5)]
+                   overflow-hidden z-50">
+
+                    <!-- Info do usuário -->
+                    <div class="px-4 py-3 border-b border-white/[0.07]">
+                        <p class="text-xs font-semibold text-white/80 truncate">{{ usuario?.nome }}</p>
+                        <p class="text-[11px] text-white/35 truncate mt-0.5">{{ usuario?.email }}</p>
+                    </div>
+
+                    <!-- Opções -->
+                    <div class="p-1.5 flex flex-col gap-0.5">
+
+                        <button routerLink="/perfil" (click)="menuOpen = false" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-white/60
+                           hover:bg-white/[0.07] hover:text-white/90 transition-all duration-150 w-full text-left cursor-pointer">
+                            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            Perfil
+                        </button>
+
+                        <button (click)="logout()" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-red-400/60
+                           hover:bg-red-500/[0.08] hover:text-red-400 transition-all duration-150 w-full text-left cursor-pointer">
+                            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Sair da conta
+                        </button>
+
+                    </div>
                 </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-[12.5px] font-medium text-white/85 truncate">{{ usuario?.username }}</p>
-                    <p class="text-[11px] text-white/30">Perfil</p>
-                </div>
-                <div class="w-3.5 h-3.5" [innerHTML]="icons.arrowRight"></div>
             </div>
-
-            <!-- Logout -->
-            <button (click)="logout()"
-                class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] text-red-400/60 hover:bg-red-500/[0.08] hover:text-red-400/90 transition-all duration-200 w-full">
-                <div class="w-[15px] h-[15px]" [innerHTML]="icons.logout"></div>
-                Sair da conta
-            </button>
-
         </div>
     </aside>
 

@@ -1,0 +1,54 @@
+<header class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
+
+    <!-- Logo + Subtexto -->
+    <div class="flex items-center gap-3">
+
+        <!-- Ícone -->
+        <div class="w-9 h-9 rounded-[11px] flex-shrink-0 flex items-center justify-center relative overflow-hidden shadow-[0_0_20px_rgba(52,211,153,.35)]"
+            style="background:linear-gradient(135deg,#34d399,#059669)">
+            <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+            <div class="w-5 h-5 relative z-10" [innerHTML]="icons.logo"></div>
+        </div>
+
+        <!-- Nome + subtítulo -->
+        <div class="flex flex-col leading-tight">
+            <span class="text-[20px] font-extrabold tracking-tight" style="font-family:'Syne',sans-serif">
+                Habit<span class="text-emerald-400">Flow</span>
+            </span>
+
+            <p class="text-zinc-400 text-xs font-medium">
+                Bem-vindo, {{ usuario?.username || 'visitante' }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Ações -->
+    <div class="flex items-center gap-3">
+
+        <!-- Data -->
+        <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] ring-1 ring-white/10 text-sm text-zinc-300 capitalize shadow-inner">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            {{ today }}
+        </div>
+
+        <!-- Notificações -->
+        <button class="relative w-11 h-11 flex items-center justify-center rounded-xl
+                   bg-white/[0.04] ring-1 ring-white/10
+                   hover:bg-white/[0.08] transition-all">
+
+            <svg class="w-5 h-5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 17h5l-1.405-1.405C18.79 15.21 18 13.605 18 12V9a6 6 0 10-12 0v3c0 1.605-.79 3.21-2.595 3.595L2 17h5m4 0v1a2 2 0 104 0v-1m-4 0h4" />
+            </svg>
+
+            <!-- Badge -->
+            <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-gray-950">
+            </span>
+        </button>
+
+    </div>
+</header>

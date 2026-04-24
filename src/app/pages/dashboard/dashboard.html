@@ -1,22 +1,4 @@
-<div class="flex flex-col gap-10 max-w-5xl mx-auto pb-12">
-
-    <header class="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
-        <div>
-            <h1
-                class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60">
-                Bem-vindo de volta, {{ usuario?.username || 'visitante' }} 👋
-            </h1>
-            <p class="text-zinc-400 text-sm mt-2 font-medium">Aqui está o seu progresso de hoje.</p>
-        </div>
-        <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] ring-1 ring-white/10 text-sm text-zinc-300 capitalize shadow-inner">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            {{ today }}
-        </div>
-    </header>
+<div class="flex flex-col gap-10">
 
     <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-32 gap-4">
         <div class="relative flex items-center justify-center">
@@ -126,7 +108,7 @@
                 <p class="text-zinc-300 font-medium mb-1">Nenhum hábito rastreado hoje</p>
                 <p class="text-zinc-500 text-sm text-center max-w-xs mb-5">Pequenos passos todos os dias geram grandes
                     resultados no futuro.</p>
-                <a routerLink="/habits"
+                <a routerLink="/habitos"
                     class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-semibold rounded-xl transition-colors shadow-lg shadow-emerald-500/20 active:scale-95">
                     Criar meu primeiro hábito
                 </a>

@@ -34,7 +34,7 @@ export class Dashboard {
   constructor(
     private auth: Auth,
     private api: ApiService,
-    private cdr: ChangeDetectorRef   // 👈
+    private cdr: ChangeDetectorRef
   ) {
     afterNextRender(() => this.loadDashboard());
   }
@@ -60,7 +60,7 @@ export class Dashboard {
         if (habitos.length === 0) {
           this.habitos = [];
           this.isLoading = false;
-          this.cdr.markForCheck();   // 👈
+          this.cdr.markForCheck();
           return;
         }
 
@@ -81,14 +81,14 @@ export class Dashboard {
               if (--pendentes === 0) {
                 this.habitos = habitos;
                 this.isLoading = false;
-                this.cdr.markForCheck();   // 👈
+                this.cdr.markForCheck();
               }
             },
             error: () => {
               if (--pendentes === 0) {
                 this.habitos = habitos;
                 this.isLoading = false;
-                this.cdr.markForCheck();   // 👈
+                this.cdr.markForCheck();
               }
             }
           });
@@ -96,7 +96,7 @@ export class Dashboard {
       },
       error: () => {
         this.isLoading = false;
-        this.cdr.markForCheck();   // 👈
+        this.cdr.markForCheck();
       }
     });
   }
@@ -111,7 +111,7 @@ export class Dashboard {
           habito.completoHoje = false;
           habito.recordeId = undefined;
           this.loadingToggle.delete(habito.id);
-          this.cdr.markForCheck();   // 👈
+          this.cdr.markForCheck();
         },
         error: () => this.loadingToggle.delete(habito.id)
       });
@@ -123,14 +123,14 @@ export class Dashboard {
           habito.completoHoje = true;
           habito.recordeId = res?.data?.id ?? res?.id;
           this.loadingToggle.delete(habito.id);
-          this.cdr.markForCheck();   // 👈
+          this.cdr.markForCheck();
         },
         error: (err) => {
           if (err.error?.mensagem?.includes('já registrado')) {
             habito.completoHoje = true;
           }
           this.loadingToggle.delete(habito.id);
-          this.cdr.markForCheck();   // 👈
+          this.cdr.markForCheck();
         }
       });
     }

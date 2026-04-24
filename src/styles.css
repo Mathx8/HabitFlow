@@ -320,21 +320,17 @@
 
 
 .active-nav {
-    background: rgba(52, 211, 153, 0.10) !important;
-    color: #34d399 !important;
-    font-weight: 500;
+    background: rgba(255,255,255,0.08);
+    color: white;
 }
-
-/* Barra lateral esquerda do item ativo */
 .active-nav::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 20%;
-    bottom: 20%;
-    width: 2.5px;
-    border-radius: 99px;
-    background: linear-gradient(180deg, #34d399, #059669);
+    left: -8px;
+    width: 3px;
+    height: 20px;
+    border-radius: 2px;
+    background: #34d399;
 }
 
 /* Ícone do item ativo */

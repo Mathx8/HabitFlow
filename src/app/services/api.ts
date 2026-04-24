@@ -96,5 +96,22 @@ export class ApiService {
   deleteConquista(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/api/Conquista/${id}`);
   }
+
+
+  getNotificacao(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Notificacao`);
+  }
+  
+  getNotificacaoNaoLidas(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Notificacao/nao-lidas`);
+  }
+
+  marcarNotificacaoComoLida(id: string): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/api/Notificacao/${id}/ler`, {});
+  }
+
+  marcarTodasNotificacoesComoLidas(): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/api/Notificacao/ler-todas`, {});
+  }
   
 }
