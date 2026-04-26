@@ -59,12 +59,7 @@ export class Habitos implements OnInit {
     this.loadHabitos();
   }
 
-  private loading = false;
-
   loadHabitos() {
-    if (this.loading) return;
-
-    this.loading = true;
     this.isLoading = true;
 
     this.api.getHabitos().subscribe({
@@ -77,7 +72,6 @@ export class Habitos implements OnInit {
         if (pendentes === 0) {
           this.habitos = [];
           this.isLoading = false;
-          this.loading = false;
           return;
         }
 
@@ -101,7 +95,6 @@ export class Habitos implements OnInit {
               if (pendentes === 0) {
                 this.habitos = habitos;
                 this.isLoading = false;
-                this.loading = false;
                 this.cdr.markForCheck();
               }
             },
@@ -110,7 +103,6 @@ export class Habitos implements OnInit {
               if (pendentes === 0) {
                 this.habitos = habitos;
                 this.isLoading = false;
-                this.loading = false;
                 this.cdr.markForCheck();
               }
             }
@@ -120,7 +112,6 @@ export class Habitos implements OnInit {
       error: () => {
         this.error = 'Erro ao carregar hábitos.';
         this.isLoading = false;
-        this.loading = false;
       }
     });
   }

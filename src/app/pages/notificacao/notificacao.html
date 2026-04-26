@@ -1,1 +1,50 @@
-<p>notificacao works!</p>
+<div class="flex flex-col gap-8">
+
+    <!-- HEADER -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold">Notificações</h1>
+            <p class="text-white/40 text-sm">
+                Acompanhe suas atualizações recentes
+            </p>
+        </div>
+
+        <button (click)="marcarTodas()" class="text-sm text-emerald-400 hover:underline">
+            Marcar todas como lidas
+        </button>
+    </div>
+
+    <!-- LOADING -->
+    <div *ngIf="isLoading" class="flex justify-center py-20">
+        <div class="w-10 h-10 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+
+    <!-- LISTA -->
+    <div *ngIf="!isLoading" class="flex flex-col gap-3">
+
+        <div *ngFor="let n of notificacoes" (click)="marcarComoLida(n)"
+            class="p-4 rounded-2xl border backdrop-blur-xl cursor-pointer transition-all flex justify-between items-center"
+            [class]="n.lida 
+                ? 'bg-white/[0.03] border-white/[0.06] opacity-60' 
+                : 'bg-emerald-500/10 border-emerald-400/20 hover:bg-emerald-500/20'">
+
+            <div>
+                <p class="font-medium">
+                    {{ n.titulo }}
+                </p>
+                <p class="text-sm text-white/50">
+                    {{ n.mensagem }}
+                </p>
+                <p class="text-xs text-white/30 mt-1">
+                    {{ n.dataCriacao | date:'dd/MM/yyyy HH:mm' }}
+                </p>
+            </div>
+
+            <span *ngIf="!n.lida" class="w-2.5 h-2.5 bg-emerald-400 rounded-full">
+            </span>
+
+        </div>
+
+    </div>
+
+</div>

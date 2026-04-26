@@ -1,0 +1,46 @@
+<div class="relative">
+
+    <!-- BOTÃO -->
+    <button (click)="toggle()" class="relative w-11 h-11 flex items-center justify-center rounded-xl
+                   bg-white/[0.04] ring-1 ring-white/10
+                   hover:bg-white/[0.08] transition-all cursor-pointer">
+
+        <svg class="w-5 h-5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 17h5l-1.405-1.405C18.79 15.21 18 13.605 18 12V9a6 6 0 10-12 0v3c0 1.605-.79 3.21-2.595 3.595L2 17h5m4 0v1a2 2 0 104 0v-1m-4 0h4" />
+        </svg>
+
+        <span *ngIf="notificacoes.length > 0" class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full">
+        </span>
+    </button>
+
+    <!-- DROPDOWN -->
+    <div *ngIf="isOpen"
+        class="absolute right-0 mt-3 w-80 bg-gray-900 border border-white/10 rounded-2xl shadow-xl p-4 z-50">
+
+        <div class="flex justify-between items-center mb-3">
+            <p class="font-semibold">Notificações</p>
+            <a routerLink="/notificacao" class="text-xs text-emerald-400 hover:underline cursor-pointer">
+                Ver todas
+            </a>
+        </div>
+
+        <div *ngIf="notificacoes.length === 0" class="text-center text-white/40 text-sm py-6">
+            Tudo em dia 🎉
+        </div>
+
+        <div class="flex flex-col gap-2 max-h-64 overflow-y-auto">
+
+            <div *ngFor="let n of notificacoes" (click)="marcarComoLida(n)"
+                class="p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.08] cursor-pointer transition">
+
+                <p class="text-sm font-medium">{{ n.titulo }}</p>
+                <p class="text-xs text-white/50">{{ n.mensagem }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

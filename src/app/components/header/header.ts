@@ -3,11 +3,12 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../services/auth';
 import { Icons } from '../../services/icons';
+import { NotificacaoModal } from '../notificacao-modal/notificacao-modal';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NotificacaoModal],
   templateUrl: './header.html',
 })
 export class Header {
