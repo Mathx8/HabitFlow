@@ -1,25 +1,14 @@
 <header class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
 
-    <!-- Logo + Subtexto -->
-    <div class="flex items-center gap-3">
+    <!-- Título dinâmico -->
+    <div class="flex flex-col leading-tight">
+        <h1 class="text-emerald-400 text-2xl font-bold tracking-tight">
+            {{ pageTitle }}
+        </h1>
 
-        <!-- Ícone -->
-        <div class="w-9 h-9 rounded-[11px] flex-shrink-0 flex items-center justify-center relative overflow-hidden shadow-[0_0_20px_rgba(52,211,153,.35)]"
-            style="background:linear-gradient(135deg,#34d399,#059669)">
-            <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
-            <div class="w-5 h-5 relative z-10" [innerHTML]="icons.logo"></div>
-        </div>
-
-        <!-- Nome + subtítulo -->
-        <div class="flex flex-col leading-tight">
-            <span class="text-[20px] font-extrabold tracking-tight" style="font-family:'Syne',sans-serif">
-                Habit<span class="text-emerald-400">Flow</span>
-            </span>
-
-            <p class="text-zinc-400 text-xs font-medium">
-                Bem-vindo, {{ usuario?.username || 'visitante' }}
-            </p>
-        </div>
+        <p class="text-zinc-400 text-sm">
+            {{ pageSubtitle }}
+        </p>
     </div>
 
     <!-- Ações -->

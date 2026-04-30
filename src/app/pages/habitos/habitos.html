@@ -2,10 +2,6 @@
 
     <!-- HEADER -->
     <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-bold tracking-tight">Seus hábitos</h1>
-            <p class="text-white/40 text-sm mt-1">Gerencie e acompanhe sua rotina diária</p>
-        </div>
         <button (click)="openModal()"
             class="relative bg-gradient-to-br from-emerald-400 to-emerald-600 hover:shadow-[0_8px_24px_rgba(52,211,153,0.35)] px-5 py-2.5 rounded-xl text-sm font-bold text-emerald-950 shadow-[0_4px_16px_rgba(52,211,153,0.25)] transition-all duration-200 hover:-translate-y-px active:translate-y-0 overflow-hidden group">
             <span
@@ -54,7 +50,7 @@
                 <p class="text-white/30 text-sm mt-1">Crie seu primeiro hábito para começar</p>
             </div>
             <button (click)="openModal()"
-                class="text-sm text-emerald-400 font-medium hover:underline transition-colors">
+                class="text-sm text-emerald-400 font-medium hover:underline transition-colors cursor-pointer">
                 + Adicionar hábito
             </button>
         </div>
@@ -185,7 +181,7 @@
                         class="block text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-2">Ícone</label>
                     <div class="flex flex-wrap gap-2">
                         <button *ngFor="let ic of ICONES" (click)="form.icone = ic"
-                            [class]="'w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all duration-200 ' + (form.icone === ic ? 'bg-emerald-400/20 border border-emerald-400/50 scale-110' : 'bg-white/5 border border-white/10 hover:bg-white/10')">
+                            [class]="'w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all duration-200 cursor-pointer ' + (form.icone === ic ? 'bg-emerald-400/20 border border-emerald-400/50 scale-110' : 'bg-white/5 border border-white/10 hover:bg-white/10')">
                             {{ ic }}
                         </button>
                     </div>
@@ -195,7 +191,7 @@
                         class="block text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-2">Cor</label>
                     <div class="flex flex-wrap gap-2">
                         <button *ngFor="let cor of CORES" (click)="form.cor = cor" [style.background]="cor"
-                            [class]="'w-9 h-9 rounded-lg transition-all duration-200 ' + (form.cor === cor ? 'scale-110 ring-2 ring-white/40' : 'opacity-70 hover:opacity-100')">
+                            [class]="'w-9 h-9 rounded-lg transition-all duration-200 cursor-pointer ' + (form.cor === cor ? 'scale-110 ring-2 ring-white/40' : 'opacity-70 hover:opacity-100')">
                         </button>
                     </div>
                 </div>
@@ -260,7 +256,7 @@
             </div>
 
             <!-- Notificação -->
-            <label class="flex items-center gap-3 cursor-pointer">
+            <label class="flex items-center gap-3">
                 <input type="checkbox" [(ngModel)]="form.notificacaoAtiva"
                     class="w-4 h-4 accent-emerald-400 cursor-pointer" />
                 <span class="text-sm text-gray-400">Ativar notificações para este hábito</span>
@@ -283,11 +279,11 @@
         <!-- Botões -->
         <div class="flex gap-3 mt-7">
             <button (click)="closeModal()"
-                class="flex-1 py-3 rounded-xl text-sm font-medium text-white/50 bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:text-white/70 transition-all duration-200">
+                class="flex-1 py-3 rounded-xl text-sm font-medium text-white/50 bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:text-white/70 transition-all duration-200 cursor-pointer">
                 Cancelar
             </button>
             <button (click)="criarHabito()" [disabled]="isSaving || !form.nome.trim()"
-                class="flex-1 relative py-3 rounded-xl text-sm font-bold text-emerald-950 bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-[0_4px_16px_rgba(52,211,153,0.25)] hover:shadow-[0_8px_24px_rgba(52,211,153,0.35)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                class="flex-1 relative py-3 rounded-xl text-sm font-bold text-emerald-950 bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-[0_4px_16px_rgba(52,211,153,0.25)] hover:shadow-[0_8px_24px_rgba(52,211,153,0.35)] hover:-translate-y-px active:translate-y-0 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 cursor-pointer overflow-hidden group">
                 <span *ngIf="!isSaving">Criar hábito</span>
                 <span *ngIf="isSaving" class="flex items-center justify-center gap-2">
                     <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"

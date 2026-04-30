@@ -320,9 +320,10 @@
 
 
 .active-nav {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
     color: white;
 }
+
 .active-nav::before {
     content: '';
     position: absolute;
@@ -333,16 +334,52 @@
     background: #34d399;
 }
 
+.active-dashboard {
+    background: transparent !important;
+}
+
+.active-dashboard::before {
+    display: none;
+}
+
+/* opcional: dar destaque só na logo */
+.active-dashboard .logo-icon {
+    box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+    transform: scale(1.05);
+}
+
 /* Ícone do item ativo */
 .active-nav .nav-icon {
     background: rgba(52, 211, 153, 0.15) !important;
 }
 
+@keyframes dropdown {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-dropdown {
+    animation: dropdown 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: top left;
+}
+
 mat-icon {
-  font-family: 'Material Symbols Outlined';
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
 }

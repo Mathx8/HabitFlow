@@ -14,120 +14,126 @@
     <!-- SIDEBAR -->
     <!-- SIDEBAR COMPACTA -->
     <aside class="fixed top-0 left-0 h-screen w-[72px] z-20
-           flex flex-col items-center py-4
-           bg-white/[0.02] border-r border-white/[0.06] backdrop-blur-xl">
+    flex flex-col items-center justify-between
+    bg-white/[0.02] border-r border-white/[0.06] backdrop-blur-xl">
 
-        <!-- Top spacing -->
-        <div class="h-2"></div>
+        <!-- TOPO (logo) -->
+        <div routerLink="/dashboard" routerLinkActive="active-dashboard" [routerLinkActiveOptions]="{ exact: true }"
+            class="flex flex-col items-center pt-8 pb-6 translate-y-[2px] cursor-pointer">
+            <div class="w-9 h-9 rounded-[11px] flex-shrink-0 flex items-center justify-center relative overflow-hidden shadow-[0_0_20px_rgba(52,211,153,.35)]"
+                style="background:linear-gradient(135deg,#34d399,#059669)">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+                <div class="w-5 h-5 relative z-10" [innerHTML]="icons.logo"></div>
+            </div>
 
-        <!-- NAV -->
-        <nav class="flex flex-col items-center gap-2 mt-2">
+        </div>
 
-            <!-- ITEM -->
-            <button routerLink="/dashboard" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
-                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
+        <!-- NAV CENTRAL -->
+        <nav class="flex flex-col items-center gap-5 mt-4">
 
-                <div class="w-5 h-5" [innerHTML]="icons.dashboard"></div>
+            <button routerLink="/habitos" routerLinkActive="active-nav" class="group relative w-12 h-12 flex items-center justify-center rounded-xl
+            text-white/60 hover:text-white transition cursor-pointer">
 
-                <!-- Tooltip -->
-                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
-                       bg-gray-900 text-white opacity-0 group-hover:opacity-100
-                       transition whitespace-nowrap pointer-events-none">
-                    Dashboard
-                </span>
-            </button>
+                <div class="w-6 h-6" [innerHTML]="icons.habitos"></div>
 
-            <button routerLink="/habitos" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
-                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
-
-                <div class="w-5 h-5" [innerHTML]="icons.habitos"></div>
-
-                <!-- Badge -->
-                <span class="absolute -top-1 -right-1 text-[9px] px-1 rounded bg-emerald-400 text-black">
-                    12
-                </span>
-
-                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
-                         bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                <span class="pointer-events-none absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition">
                     Hábitos
                 </span>
             </button>
 
-            <button routerLink="/conquistas" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
-                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
+            <button routerLink="/conquistas" routerLinkActive="active-nav" class="group relative w-12 h-12 flex items-center justify-center rounded-xl
+            text-white/60 hover:text-white transition cursor-pointer">
 
-                <div class="w-5 h-5" [innerHTML]="icons.settings"></div>
+                <div class="w-6 h-6" [innerHTML]="icons.settings"></div>
 
-                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
-                         bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                <span class="pointer-events-none absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition">
                     Conquistas
                 </span>
             </button>
 
-            <button routerLink="/analytics" routerLinkActive="active-nav" class="group relative w-11 h-11 flex items-center justify-center rounded-xl
-                   text-white/50 hover:text-white hover:bg-white/[0.06] transition cursor-pointer">
+            <button routerLink="/analytics" routerLinkActive="active-nav" class="group relative w-12 h-12 flex items-center justify-center rounded-xl
+            text-white/60 hover:text-white transition cursor-pointer">
 
-                <div class="w-5 h-5" [innerHTML]="icons.chat"></div>
+                <div class="w-6 h-6" [innerHTML]="icons.chat"></div>
 
-                <span class="absolute left-full ml-3 px-2 py-1 text-xs rounded-md
-                         bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                <span class="pointer-events-none absolute left-full ml-3 px-2 py-1 text-xs rounded-md
+                bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition">
                     Chat
                 </span>
             </button>
 
         </nav>
 
-        <!-- Spacer -->
+        <!-- EMPURRA PRA BAIXO -->
         <div class="flex-1"></div>
 
-        <!-- USER -->
-        <div class="flex flex-col items-center gap-3 mb-2 relative">
+        <!-- BOTTOM (perfil igual Instagram) -->
+        <div class="relative flex flex-col items-center gap-4 pb-6">
 
-            <!-- Avatar com dropdown -->
-            <div class="relative">
-                <button (click)="toggleMenu()" class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold
-                   text-emerald-400 border border-emerald-400/20 transition-all duration-200
-                   hover:border-emerald-400/50 hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] cursor-pointer"
-                    style="background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(5,150,105,.2));font-family:'Syne',sans-serif">
-                    {{ inicial }}
-                </button>
+            <!-- Avatar -->
+            <button (click)="toggleMenu()" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold
+        text-emerald-400 border border-emerald-400/20
+        hover:border-emerald-400/50 transition-all duration-200
+        hover:scale-105 active:scale-95 cursor-pointer">
 
-                <!-- Dropdown -->
-                <div *ngIf="menuOpen" class="absolute bottom-full left-full ml-3 mb-0 w-44
-                   bg-gray-900 border border-white/10 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.5)]
-                   overflow-hidden z-50">
+                {{ inicial }}
+            </button>
 
-                    <!-- Info do usuário -->
-                    <div class="px-4 py-3 border-b border-white/[0.07]">
-                        <p class="text-xs font-semibold text-white/80 truncate">{{ usuario?.nome }}</p>
-                        <p class="text-[11px] text-white/35 truncate mt-0.5">{{ usuario?.email }}</p>
-                    </div>
+            <!-- Dropdown -->
+            <div *ngIf="menuOpen" class="absolute bottom-14 left-full ml-3 w-56 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] 
+                rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden z-50 animate-dropdown">
 
-                    <!-- Opções -->
-                    <div class="p-1.5 flex flex-col gap-0.5">
+                <!-- Glow topo -->
+                <div class="absolute inset-0 bg-gradient-to-b from-white/[0.06] to-transparent pointer-events-none">
+                </div>
 
-                        <button routerLink="/perfil" (click)="menuOpen = false" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-white/60
-                           hover:bg-white/[0.07] hover:text-white/90 transition-all duration-150 w-full text-left cursor-pointer">
-                            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                <circle cx="12" cy="7" r="4" />
-                            </svg>
-                            Perfil
-                        </button>
+                <!-- USER INFO -->
+                <div class="relative px-4 py-3 border-b border-white/[0.06]">
 
-                        <button (click)="logout()" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-red-400/60
-                           hover:bg-red-500/[0.08] hover:text-red-400 transition-all duration-150 w-full text-left cursor-pointer">
-                            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                                <polyline points="16 17 21 12 16 7" />
-                                <line x1="21" y1="12" x2="9" y2="12" />
-                            </svg>
-                            Sair da conta
-                        </button>
+                    <p class="text-sm font-semibold text-white/90 truncate">
+                        {{ usuario?.nome }}
+                    </p>
 
-                    </div>
+                    <p class="text-[11px] text-white/40 truncate mt-0.5">
+                        {{ usuario?.email }}
+                    </p>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="relative p-1.5 flex flex-col gap-1">
+
+                    <button routerLink="/perfil" (click)="menuOpen = false" class="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm
+                text-white/60 hover:text-white
+                hover:bg-white/[0.06] transition-all duration-200 w-full text-left cursor-pointer">
+
+                        <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+
+                        Perfil
+                    </button>
+
+                    <div class="h-px bg-white/[0.06] my-1"></div>
+
+                    <button (click)="logout()" class="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm
+                text-red-400/70 hover:text-red-400
+                hover:bg-red-500/[0.08] transition-all duration-200 w-full text-left cursor-pointer">
+
+                        <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+
+                        Sair da conta
+                    </button>
+
                 </div>
             </div>
         </div>
