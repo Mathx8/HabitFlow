@@ -72,6 +72,30 @@ export class ApiService {
     return this.http.delete(`${this.baseUrl}/api/HabitoRecorde/${id}`);
   }
 
+  createHabitoCompartilhado(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/habitos-compartilhados`, data);
+  }
+
+  convidarUsuarioParaHabito(id: string, username: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/habitos-compartilhados/${id}/convidar`, { username });
+  }
+
+  aceitarConvite(id: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/habitos-compartilhados/${id}/aceitar`, {});
+  }
+
+  recusarConvite(id: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/habitos-compartilhados/${id}/recusar`, {});
+  }
+
+  getConvites(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/habitos-compartilhados/convites`);
+  }
+
+  getProgessoHabitoCompartilhado(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/habitos-compartilhados/${id}/progresso`);
+  }
+
 
   createConquista(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/Conquista`, data);

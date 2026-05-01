@@ -42,6 +42,11 @@ export class Habitos implements OnInit {
   isLoading = true;
   error = '';
 
+  convites: any[] = [];
+  showConvites = false;
+  usernameConvite = '';
+  habitoSelecionado: Habito | null = null;
+
   showModal = false;
   isSaving = false;
 
@@ -57,6 +62,7 @@ export class Habitos implements OnInit {
 
   ngOnInit() {
     this.loadHabitos();
+    this.loadConvites();
   }
 
   loadHabitos() {
@@ -112,6 +118,15 @@ export class Habitos implements OnInit {
       error: () => {
         this.error = 'Erro ao carregar hábitos.';
         this.isLoading = false;
+      }
+    });
+  }
+
+  loadConvites() {
+    this.api.getConvites().subscribe({
+      next: (res) => {
+        this.convites = res.data ?? res;
+        this.cdr.markForCheck();
       }
     });
   }
@@ -203,7 +218,6 @@ export class Habitos implements OnInit {
     }
   }
 
-
   removerHabito(id: string) {
     this.api.deleteHabito(id).subscribe({
       next: () => {
@@ -213,6 +227,35 @@ export class Habitos implements OnInit {
       error: () => {
         this.error = 'Erro ao remover hábito.';
       }
+    });
+  }
+
+  abrirConvite(h: Habito) {
+    this.habitoSelecionado = h;
+    this.usernameConvite = '';
+  }
+
+  enviarConvite() {
+    if (!this.usernameConvite || !this.habitoSelecionado) return;
+
+    this.api.convidarUsuarioParaHabito(this.habitoSelecionado.id, this.usernameConvite).subscribe({
+      next: () => {
+        this.usernameConvite = '';
+        this.habitoSelecionado = null;
+      }
+    });
+  }
+
+  aceitar(id: string) {
+    this.api.aceitarConvite(id).subscribe(() => {
+      this.loadConvites();
+      this.loadHabitos();
+    });
+  }
+
+  recusar(id: string) {
+    this.api.recusarConvite(id).subscribe(() => {
+      this.loadConvites();
     });
   }
 
