@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   private baseUrl = 'https://habitflow-backend-1ybb.onrender.com';
+
+  private notificacoesSubject = new BehaviorSubject<any[]>([]);
+  notificacoes$ = this.notificacoesSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -125,17 +128,35 @@ export class ApiService {
   getNotificacao(): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/Notificacao`);
   }
-  
+
   getNotificacaoNaoLidas(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/Notificacao/nao-lidas`);
+    return this.http.get(`${this.baseUrl}/api/Notificacao/nao-lidas`).pipe(
+      tap((res: any) => {
+        const data = Array.isArray(res) ? res : (res.data ?? []);
+        this.notificacoesSubject.next(data);
+      })
+    );
   }
 
   marcarNotificacaoComoLida(id: string): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/api/Notificacao/${id}/ler`, {});
+    return this.http.patch(`${this.baseUrl}/api/Notificacao/${id}/ler`, {}).pipe(
+      tap(() => {
+        const atual = this.notificacoesSubject.value;
+        this.notificacoesSubject.next(atual.filter(n => n.id !== id));
+      })
+    );
   }
 
   marcarTodasNotificacoesComoLidas(): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/api/Notificacao/ler-todas`, {});
+    return this.http.patch(`${this.baseUrl}/api/Notificacao/ler-todas`, {}).pipe(
+      tap(() => {
+        this.notificacoesSubject.next([]);
+      })
+    );
   }
-  
+
+  carregarNotificacoes() {
+    this.getNotificacaoNaoLidas().subscribe();
+  }
+
 }

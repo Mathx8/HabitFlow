@@ -14,16 +14,16 @@ export class NotificacaoModal {
   notificacoes: any[] = [];
   isOpen = false;
 
+  ngOnInit() {
+    this.api.notificacoes$.subscribe(n => {
+      this.notificacoes = n;
+    });
+  }
+
   constructor(private api: ApiService) { }
 
   toggle() {
     this.isOpen = !this.isOpen;
-
-    if (this.isOpen) {
-      this.api.getNotificacaoNaoLidas().subscribe(res => {
-        this.notificacoes = Array.isArray(res) ? res : (res.data ?? []);
-      });
-    }
   }
 
   marcarComoLida(n: any) {

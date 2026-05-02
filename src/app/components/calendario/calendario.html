@@ -39,7 +39,7 @@
             <ng-container *ngFor="let semana of semanas">
                 <ng-container *ngFor="let dia of semana.dias">
 
-                    <div class="group relative aspect-square rounded-lg sm:rounded-xl flex items-center justify-center text-xs font-semibold transition-all duration-300"
+                    <div class="group/item relative aspect-square rounded-lg sm:rounded-xl flex items-center justify-center text-xs font-semibold transition-all duration-300"
                         [ngClass]="{
                             'bg-transparent': !dia,
                             'bg-white/[0.03] text-zinc-500 ring-1 ring-white/[0.05] hover:ring-white/20 hover:bg-white/[0.08] cursor-default': dia && !dia.concluido,
@@ -49,7 +49,7 @@
                         {{ dia ? (dia.data | date:'d') : '' }}
 
                         <div *ngIf="dia"
-                            class="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 flex flex-col items-center">
+                            class="absolute bottom-full mb-2 opacity-0 group-hover/item:opacity-100 transition-opacity duration-200 pointer-events-none z-50 flex flex-col items-center">
                             <div
                                 class="bg-zinc-800 text-zinc-100 text-[10px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl ring-1 ring-white/10 flex items-center gap-1.5">
                                 <span [class]="dia.concluido ? 'text-emerald-400' : 'text-zinc-400'">

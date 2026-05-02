@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api';
+import { Calendario } from '../../components/calendario/calendario';
 
 interface Habito {
   id: string;
@@ -32,7 +33,7 @@ interface NovoHabito {
 @Component({
   selector: 'app-habitos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Calendario],
   templateUrl: './habitos.html',
 })
 
@@ -46,6 +47,8 @@ export class Habitos implements OnInit {
   showConvites = false;
   usernameConvite = '';
   habitoSelecionado: Habito | null = null;
+
+  calendarioAbertoId: string | null = null;
 
   showModal = false;
   isSaving = false;
@@ -72,7 +75,6 @@ export class Habitos implements OnInit {
       next: (res) => {
         const habitos: Habito[] = Array.isArray(res) ? res : (res.data ?? []);
 
-        const hoje = new Date().toDateString();
         let pendentes = habitos.length;
 
         if (pendentes === 0) {
@@ -228,6 +230,11 @@ export class Habitos implements OnInit {
         this.error = 'Erro ao remover hábito.';
       }
     });
+  }
+
+  toggleCalendario(id: string) {
+    this.calendarioAbertoId = this.calendarioAbertoId === id ? null : id;
+    this.cdr.markForCheck();
   }
 
   abrirConvite(h: Habito) {
