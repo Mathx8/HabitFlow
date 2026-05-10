@@ -9,6 +9,7 @@ import { MainLayout } from './components/main-layout/main-layout';
 import { Habitos } from './pages/habitos/habitos';
 import { Conquistas } from './pages/conquistas/conquistas';
 import { NotificacaoPage } from './pages/notificacao/notificacao';
+import { FriendsComponent } from './pages/friends/friends';
 
 export const routes: Routes = [
   { path: '', component: Splash },
@@ -16,15 +17,17 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'confirm-email', component: ConfirmEmail },
+  { path: 'friends', component: FriendsComponent },
   {
+
     path: '',
     component: MainLayout,
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'habitos', component: Habitos },
       { path: 'conquistas', component: Conquistas },
-      { path: 'notificacao', component: NotificacaoPage }
-      // { path: 'chat', component: Chat },
+      { path: 'notificacao', component: NotificacaoPage },
+      { path: 'friends', component: FriendsComponent }
     ]
   }
 ];

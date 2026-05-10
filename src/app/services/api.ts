@@ -159,4 +159,32 @@ export class ApiService {
     this.getNotificacaoNaoLidas().subscribe();
   }
 
+  getFriends(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Amizade/amigos`);
+  }
+
+  getPendentes(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Amizade/pendentes`);
+  }
+
+  getEnviados(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Amizade/enviados`);
+  }
+
+  sendFriendRequest(username: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Amizade`, {
+      username
+    });
+  }
+
+  responderAmizade(amizadeId: string, aceitar: boolean): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Amizade/responder`, {
+      amizadeId,
+      aceitar
+    });
+  }
+
+  bloquearAmizade(amizadeId: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Amizade/bloquear/${amizadeId}`, {});
+  }
 }

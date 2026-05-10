@@ -1,0 +1,131 @@
+<div class="friends-container">
+
+    <!-- HEADER -->
+    <div class="friends-header">
+
+        <div>
+            <h1>Amigos</h1>
+            <p>
+                Gerencie suas amizades e conexões
+            </p>
+        </div>
+
+    </div>
+
+    <!-- ADICIONAR -->
+    <div class="glass-card add-friend-card">
+
+        <h2>Adicionar amigo</h2>
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                [(ngModel)]="username"
+                placeholder="Digite o username"
+            >
+
+            <button
+                (click)="sendRequest()"
+                [disabled]="loading"
+            >
+                {{ loading ? 'Enviando...' : 'Adicionar' }}
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- PENDENTES -->
+    <div class="glass-card section-card">
+
+        <div class="section-title">
+            <h2>Solicitações pendentes</h2>
+            <span>{{ pendentes.length }}</span>
+        </div>
+
+        <div
+            class="friend-item"
+            *ngFor="let p of pendentes"
+        >
+
+            <div class="friend-info">
+
+                <div class="avatar">
+                    {{ p.username?.charAt(0)?.toUpperCase() || 'U' }}
+                </div>
+
+                <div>
+                    <h3>{{ p.nome }}</h3>
+                    <p>@{{ p.username }}</p>
+                </div>
+
+            </div>
+
+            <div class="friend-actions">
+
+                <button
+                    class="btn accept"
+                    (click)="aceitar(p.id)"
+                >
+                    Aceitar
+                </button>
+
+                <button
+                    class="btn reject"
+                    (click)="recusar(p.id)"
+                >
+                    Recusar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div
+            *ngIf="pendentes.length === 0"
+            class="empty-state"
+        >
+            Nenhuma solicitação pendente
+        </div>
+
+    </div>
+
+    <!-- AMIGOS -->
+    <div class="glass-card section-card">
+
+        <div class="section-title">
+            <h2>Seus amigos</h2>
+            <span>{{ friends.length }}</span>
+        </div>
+
+        <div
+            class="friend-item"
+            *ngFor="let f of friends"
+        >
+
+            <div class="friend-info">
+
+                <div class="avatar">
+                    {{ f.username?.charAt(0)?.toUpperCase() || 'A' }}
+                </div>
+
+                <div>
+                    <h3>{{ f.nome }}</h3>
+                    <p>@{{ f.username }}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            *ngIf="friends.length === 0"
+            class="empty-state"
+        >
+            Você ainda não possui amigos
+        </div>
+
+    </div>
+
+</div>
