@@ -17,7 +17,6 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'confirm-email', component: ConfirmEmail },
-  { path: 'friends', component: FriendsComponent },
   {
 
     path: '',
