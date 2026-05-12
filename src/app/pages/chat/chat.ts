@@ -53,14 +53,17 @@ export class ChatComponent implements OnInit {
 
             return {
 
-              id: chat.id,
+                id: chat.id,
 
-              nome:
-                chat.nome ||
-                chat.usuarios?.[0]?.nome ||
-                'Chat',
+                nome:
+                  chat.nome ||
+                  chat.usuarios?.[0]?.nome ||
+                  'Chat',
 
-              online: true,
+                username:
+                  chat.usuarios?.[0]?.username || '',
+
+                online: true,
 
               hora:
                 ultimaMensagem?.dataCriacao
@@ -248,6 +251,8 @@ export class ChatComponent implements OnInit {
               res.nome ||
               this.nomeNovoChat ||
               this.usernameNovoChat,
+
+            username: this.usernameNovoChat,
 
             online: true,
 

@@ -152,11 +152,11 @@
                     <div>
 
                         <h2 class="font-bold text-lg">
-                            {{ selectedChat?.nome || 'Selecione um chat' }}
+                            {{ selectedChat?.nome || selectedChat?.username || 'Selecione um chat' }}
                         </h2>
 
                         <p class="text-sm text-emerald-400">
-                            {{ selectedChat?.online ? 'Online agora' : 'Offline' }}
+                            @{{ selectedChat?.username }}
                         </p>
 
                     </div>
