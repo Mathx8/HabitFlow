@@ -10,6 +10,7 @@ import { Habitos } from './pages/habitos/habitos';
 import { Conquistas } from './pages/conquistas/conquistas';
 import { NotificacaoPage } from './pages/notificacao/notificacao';
 import { FriendsComponent } from './pages/friends/friends';
+import { ChatComponent } from './pages/chat/chat';
 
 export const routes: Routes = [
   { path: '', component: Splash },
@@ -26,7 +27,8 @@ export const routes: Routes = [
       { path: 'habitos', component: Habitos },
       { path: 'conquistas', component: Conquistas },
       { path: 'notificacao', component: NotificacaoPage },
-      { path: 'friends', component: FriendsComponent }
+      { path: 'friends', component: FriendsComponent },
+      { path: 'chat', component: ChatComponent }
     ]
   }
 ];

@@ -187,4 +187,43 @@ export class ApiService {
   bloquearAmizade(amizadeId: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/Amizade/bloquear/${amizadeId}`, {});
   }
+
+   getChats(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/chat`);
+  }
+
+  criarChat(nome: string, usernames: string[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/chat`, {
+      tipo: 0,
+      nome,
+      usernames
+    });
+  }
+
+  sairDoChat(chatId: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/chat/${chatId}/sair`, {});
+  }
+
+  deletarChat(chatId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/chat/${chatId}`);
+  }
+
+  // =========================
+  // MENSAGENS
+  // =========================
+
+  enviarMensagem(chatId: string, conteudo: string): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/api/mensagem/${chatId}`,
+      JSON.stringify(conteudo),
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  }
+  buscarMensagens(chatId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/mensagem/${chatId}`);
+  }
 }
