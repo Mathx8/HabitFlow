@@ -9,7 +9,6 @@ import { MainLayout } from './components/main-layout/main-layout';
 import { Habitos } from './pages/habitos/habitos';
 import { Conquistas } from './pages/conquistas/conquistas';
 import { NotificacaoPage } from './pages/notificacao/notificacao';
-import { FriendsComponent } from './pages/friends/friends';
 import { ChatComponent } from './pages/chat/chat';
 
 export const routes: Routes = [
@@ -19,7 +18,6 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'confirm-email', component: ConfirmEmail },
   {
-
     path: '',
     component: MainLayout,
     children: [
@@ -27,7 +25,6 @@ export const routes: Routes = [
       { path: 'habitos', component: Habitos },
       { path: 'conquistas', component: Conquistas },
       { path: 'notificacao', component: NotificacaoPage },
-      { path: 'friends', component: FriendsComponent },
       { path: 'chat', component: ChatComponent }
     ]
   }

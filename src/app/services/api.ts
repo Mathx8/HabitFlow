@@ -158,6 +158,7 @@ export class ApiService {
   carregarNotificacoes() {
     this.getNotificacaoNaoLidas().subscribe();
   }
+  
 
   getFriends(): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/Amizade/amigos`);

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, afterNextRender, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { ApiService } from '../../services/api';
+
+type Tab = 'amigos' | 'chat';
 
 @Component({
   selector: 'app-chat',
@@ -10,282 +11,245 @@ import { ApiService } from '../../services/api';
   imports: [CommonModule, FormsModule],
   templateUrl: './chat.html',
 })
-
 export class ChatComponent implements OnInit {
 
+  // ── Abas ──────────────────────────────────────────────
+  activeTab: Tab = 'amigos';
+
+  // ── Amigos ────────────────────────────────────────────
+  friends: any[] = [];
+  pendentes: any[] = [];
+  enviados: any[] = [];
+  username = '';
+  loadingRequest = false;
+
+  // ── Chat ──────────────────────────────────────────────
   chats: any[] = [];
-
   selectedChat: any = null;
-
   mensagem = '';
+  loadingMsg = false;
+  showSidebar = true; // mobile: alterna lista ↔ conversa
 
-  loading = false;
-
+  // ── Modal novo chat ───────────────────────────────────
   modalNovoChat = false;
-
+  nomeNovoChat = '';
   usernameNovoChat = '';
 
-  nomeNovoChat = '';
+  // ── Menu chat ───────────────────────────────────
+  menuChatAberto = false;
 
-  constructor(
-    private api: ApiService
-  ) { }
+  @ViewChild('messagesEnd') messagesEnd!: ElementRef;
 
-  ngOnInit(): void {
-    this.carregarChats();
+  constructor(private api: ApiService, private cdr: ChangeDetectorRef) { }
+
+  ngOnInit() {
+    this.loadFriends();
+    this.loadChats();
   }
 
-  carregarChats() {
+  // ── ABAS ──────────────────────────────────────────────
+  setTab(tab: Tab) {
+    this.activeTab = tab;
+    this.cdr.markForCheck();
+  }
 
-    this.api.getChats()
-      .subscribe({
+  // ── AMIGOS ────────────────────────────────────────────
+  loadFriends() {
+    this.api.getFriends().subscribe({
+      next: (res: any) => { this.friends = Array.isArray(res) ? res : (res.data ?? []); this.cdr.markForCheck(); },
+      error: () => { }
+    });
+    this.api.getPendentes().subscribe({
+      next: (res: any) => { this.pendentes = Array.isArray(res) ? res : (res.data ?? []); this.cdr.markForCheck(); },
+      error: () => { }
+    });
+    this.api.getEnviados().subscribe({
+      next: (res: any) => {
+        this.enviados = Array.isArray(res) ? res : (res.data ?? []);
+        this.cdr.markForCheck();
+      },
+      error: () => { }
+    });
+  }
 
-        next: (res: any) => {
+  sendRequest() {
+    if (!this.username.trim()) return;
+    this.loadingRequest = true;
+    this.api.sendFriendRequest(this.username).subscribe({
+      next: () => { this.username = ''; this.loadingRequest = false; this.loadFriends(); this.cdr.markForCheck(); },
+      error: () => { this.loadingRequest = false; }
+    });
+  }
 
-          console.log(res);
+  aceitar(id: string) {
+    this.api.responderAmizade(id, true).subscribe({ next: () => this.loadFriends(), error: () => { } });
+  }
 
-          this.chats = res.map((chat: any) => {
+  recusar(id: string) {
+    this.api.responderAmizade(id, false).subscribe({ next: () => this.loadFriends(), error: () => { } });
+  }
 
-            const ultimaMensagem =
-              chat.mensagens?.length > 0
-                ? chat.mensagens[chat.mensagens.length - 1]
-                : null;
+  bloquear(id: string) {
+    this.api.bloquearAmizade(id).subscribe({
+      next: () => {
+        this.loadFriends();
+      },
+      error: () => { }
+    });
+  }
 
-            return {
+  // ── CHATS ─────────────────────────────────────────────
+  loadChats() {
+    this.api.getChats().subscribe({
+      next: (res: any) => {
+        const lista = Array.isArray(res) ? res : (res.data ?? []);
+        this.chats = lista.map((chat: any) => this.mapChat(chat));
+        this.cdr.markForCheck();
+      },
+      error: () => { }
+    });
+  }
 
-                id: chat.id,
+  mapChat(chat: any) {
+    const ultima = chat.mensagens?.at(-1) ?? null;
+    const userId = typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('usuario') || '{}')?.id
+      : null;
+    return {
+      id: chat.id,
+      nome: chat.nome || chat.usuarios?.[0]?.nome || 'Chat',
+      username: chat.usuarios?.[0]?.username || '',
+      online: true,
+      hora: ultima?.dataCriacao ? new Date(ultima.dataCriacao).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
+      ultimaMensagem: ultima?.conteudo || 'Nenhuma mensagem',
+      naoLidas: 0,
+      mensagens: (chat.mensagens ?? []).map((m: any) => this.mapMsg(m, userId)),
+    };
+  }
 
-                nome:
-                  chat.nome ||
-                  chat.usuarios?.[0]?.nome ||
-                  'Chat',
+  mapMsg(m: any, userId: string | null) {
+    console.log('MSG USER:', m.usuarioId);
+    console.log('LOCAL USER:', userId);
 
-                username:
-                  chat.usuarios?.[0]?.username || '',
-
-                online: true,
-
-              hora:
-                ultimaMensagem?.dataCriacao
-                  ? new Date(ultimaMensagem.dataCriacao)
-                    .toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })
-                  : '',
-
-              ultimaMensagem:
-                ultimaMensagem?.conteudo || 'Nenhuma mensagem',
-
-              naoLidas: 0,
-
-              mensagens:
-                chat.mensagens?.map((m: any) => ({
-
-                  texto: m.conteudo,
-
-                  hora:
-                    m.dataCriacao
-                      ? new Date(m.dataCriacao)
-                        .toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })
-                      : '',
-
-                  autor:
-                    m.usuarioId === localStorage.getItem('userId')
-                      ? 'eu'
-                      : 'outro'
-
-                })) || []
-
-            };
-
-          });
-
-        },
-
-        error: (err: any) => {
-          console.log(err);
-        }
-
-      });
-
+    return {
+      texto: m.conteudo,
+      hora: (m.dataCriacao || m.criadoEm)
+        ? new Date(m.dataCriacao || m.criadoEm)
+          .toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        : '',
+      autor: String(m.usuarioId) === String(userId)
+        ? 'eu'
+        : 'outro',
+    };
   }
 
   selecionarChat(chat: any) {
+    this.menuChatAberto = false;
+
+    const userId = typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('usuario') || '{}')?.id
+      : null;
 
     this.selectedChat = chat;
-
-    this.api.buscarMensagens(chat.id)
-      .subscribe({
-
-        next: (res: any) => {
-
-          this.selectedChat.mensagens = res.map((m: any) => ({
-
-            texto: m.conteudo,
-
-            hora:
-              m.criadoEm
-                ? new Date(m.criadoEm)
-                  .toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })
-                : '',
-
-            autor:
-              m.usuarioId === localStorage.getItem('userId')
-                ? 'eu'
-                : 'outro'
-
-          }));
-
-        },
-
-        error: (err: any) => {
-          console.log(err);
-        }
-
-      });
-
+    this.showSidebar = false;
+    
+    this.api.buscarMensagens(chat.id).subscribe({
+      next: (res: any) => {
+        const lista = Array.isArray(res) ? res : (res.data ?? []);
+        this.selectedChat.mensagens = lista.map((m: any) => this.mapMsg(m, userId));
+        this.cdr.markForCheck();
+        setTimeout(() => this.scrollBottom(), 50);
+      },
+      error: () => { }
+    });
   }
 
   enviarMensagem() {
+    if (!this.mensagem.trim() || !this.selectedChat) return;
+    this.loadingMsg = true;
+    this.api.enviarMensagem(this.selectedChat.id, this.mensagem).subscribe({
+      next: (res: any) => {
+        this.selectedChat.mensagens ??= [];
+        this.selectedChat.mensagens.push({
+          texto: res.conteudo || this.mensagem,
+          hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          autor: 'eu',
+        });
+        this.selectedChat.ultimaMensagem = this.mensagem;
+        this.mensagem = '';
+        this.loadingMsg = false;
+        this.cdr.markForCheck();
+        setTimeout(() => this.scrollBottom(), 50);
+      },
+      error: () => { this.loadingMsg = false; }
+    });
+  }
 
-    if (!this.mensagem.trim()) return;
+  sairChat(chatId: string) {
+    this.api.sairDoChat(chatId).subscribe({
+      next: () => {
+        this.chats = this.chats.filter(c => c.id !== chatId);
 
-    if (!this.selectedChat) return;
-
-    this.loading = true;
-
-    this.api
-      .enviarMensagem(
-        this.selectedChat.id,
-        this.mensagem
-      )
-      .subscribe({
-
-        next: (res: any) => {
-
-          console.log(res);
-
-          if (!this.selectedChat.mensagens) {
-            this.selectedChat.mensagens = [];
-          }
-
-          this.selectedChat.mensagens.push({
-
-            texto: res.conteudo || this.mensagem,
-
-            hora: new Date().toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit'
-            }),
-
-            autor: 'eu'
-
-          });
-
-          this.selectedChat.ultimaMensagem = this.mensagem;
-
-          this.selectedChat.hora = new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-
-          this.mensagem = '';
-
-          this.loading = false;
-        },
-
-        error: (err: any) => {
-
-          console.log(err);
-
-          this.loading = false;
+        if (this.selectedChat?.id === chatId) {
+          this.selectedChat = null;
         }
 
-      });
-
+        this.cdr.markForCheck();
+      },
+      error: () => { }
+    });
   }
 
-  abrirModalNovoChat() {
-    this.modalNovoChat = true;
+  deletarChat(chatId: string) {
+    this.api.deletarChat(chatId).subscribe({
+      next: () => {
+        this.chats = this.chats.filter(c => c.id !== chatId);
+
+        if (this.selectedChat?.id === chatId) {
+          this.selectedChat = null;
+        }
+
+        this.cdr.markForCheck();
+      },
+      error: () => { }
+    });
   }
 
-  fecharModalNovoChat() {
-
-    this.modalNovoChat = false;
-
-    this.usernameNovoChat = '';
-
-    this.nomeNovoChat = '';
-
+  scrollBottom() {
+    this.messagesEnd?.nativeElement?.scrollIntoView({ behavior: 'smooth' });
   }
+
+  // ── MODAL NOVO CHAT ───────────────────────────────────
+  abrirModal() { this.modalNovoChat = true; }
+  fecharModal() { this.modalNovoChat = false; this.nomeNovoChat = ''; this.usernameNovoChat = ''; }
 
   criarNovoChat() {
-
-    if (!this.usernameNovoChat.trim()) {
-      alert('Digite um username');
-      return;
-    }
-
-    this.api.criarChat(
-      this.nomeNovoChat,
-      [this.usernameNovoChat]
-    )
-      .subscribe({
-
-        next: (res: any) => {
-
-          console.log(res);
-
-          const novoChat = {
-
-            id: res.id,
-
-            nome:
-              res.nome ||
-              this.nomeNovoChat ||
-              this.usernameNovoChat,
-
-            username: this.usernameNovoChat,
-
-            online: true,
-
-            hora: '',
-
-            ultimaMensagem: 'Nenhuma mensagem',
-
-            naoLidas: 0,
-
-            mensagens: []
-
-          };
-
-          this.chats.unshift(novoChat);
-
-          this.selectedChat = novoChat;
-
-          this.fecharModalNovoChat();
-
-        },
-
-        error: (err: any) => {
-
-          console.log(err);
-
-          alert(
-            err?.error || 'Erro ao criar chat'
-          );
-
-        }
-
-      });
-
+    if (!this.usernameNovoChat.trim()) return;
+    this.api.criarChat(this.nomeNovoChat, [this.usernameNovoChat]).subscribe({
+      next: (res: any) => {
+        const novo = { id: res.id, nome: res.nome || this.nomeNovoChat || this.usernameNovoChat, username: this.usernameNovoChat, online: true, hora: '', ultimaMensagem: 'Nenhuma mensagem', naoLidas: 0, mensagens: [] };
+        this.chats.unshift(novo);
+        this.selectedChat = novo;
+        this.showSidebar = false;
+        this.fecharModal();
+        this.cdr.markForCheck();
+      },
+      error: () => { }
+    });
   }
 
+  // ── HELPERS ───────────────────────────────────────────
+  iniciais(nome: string) {
+    return nome?.split(' ').slice(0, 2).map(p => p[0]).join('').toUpperCase() || '?';
+  }
+
+  onEnter(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      this.enviarMensagem();
+    }
+  }
 }
