@@ -1,0 +1,275 @@
+<div class="min-h-screen text-white">
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="flex flex-col items-center justify-center py-24 gap-4">
+        <svg class="animate-spin w-8 h-8 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" />
+        </svg>
+
+        <p class="text-sm text-white/40">
+            Carregando perfil...
+        </p>
+    </div>
+
+    <!-- ERRO -->
+    <div *ngIf="error && !loading"
+        class="max-w-3xl mx-auto flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-2xl px-5 py-4">
+
+        <svg class="w-5 h-5 text-red-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+
+        <p class="text-sm text-red-400">
+            {{ error }}
+        </p>
+    </div>
+
+    <!-- PERFIL -->
+    <div *ngIf="perfil && !loading" class="flex flex-col gap-8">
+
+        <!-- CARD PERFIL -->
+        <div class="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
+
+            <!-- Glow -->
+            <div
+                class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent">
+            </div>
+
+            <div class="p-8 md:p-10 flex flex-col md:flex-row gap-8 md:items-center">
+
+                <!-- FOTO -->
+                <div class="relative shrink-0">
+
+                    <div *ngIf="perfil.fotoPerfilUrl; else semFoto"
+                        class="w-32 h-32 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+
+                        <img [src]="perfil.fotoPerfilUrl" alt="Foto perfil" class="w-full h-full object-cover" />
+
+                    </div>
+
+                    <ng-template #semFoto>
+                        <div
+                            class="w-32 h-32 rounded-3xl bg-gradient-to-br from-emerald-400/20 to-emerald-600/10 border border-emerald-400/20 flex items-center justify-center shadow-2xl">
+
+                            <span class="text-4xl font-bold text-emerald-400">
+                                {{ perfil.nome?.charAt(0) }}
+                            </span>
+
+                        </div>
+                    </ng-template>
+
+                </div>
+
+                <!-- INFO -->
+                <div class="flex-1 flex flex-col gap-5">
+
+                    <div>
+
+                        <div class="flex items-center gap-3 flex-wrap">
+
+                            <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+                                {{ perfil.nome }}
+                            </h1>
+
+                        </div>
+
+                        <p class="text-lg text-white/45 mt-2">
+                            @{{ perfil.username }}
+                        </p>
+
+                    </div>
+
+                    <!-- STATS -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                        <!-- EMAIL -->
+                        <div class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 flex items-start gap-4">
+
+                            <div
+                                class="w-11 h-11 rounded-xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center shrink-0">
+
+                                <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+
+                                    <path d="M4 4h16v16H4z" opacity="0" />
+                                    <path d="M4 6l8 7 8-7" />
+                                    <rect x="4" y="6" width="16" height="12" rx="2" />
+
+                                </svg>
+
+                            </div>
+
+                            <div class="min-w-0">
+
+                                <p class="text-[11px] uppercase tracking-widest text-white/30 mb-1">
+                                    Email
+                                </p>
+
+                                <p class="text-sm text-white/80 break-all">
+                                    {{ perfil.email }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <!-- NASCIMENTO -->
+                        <div class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 flex items-start gap-4">
+
+                            <div
+                                class="w-11 h-11 rounded-xl bg-blue-400/10 border border-blue-400/20 flex items-center justify-center shrink-0">
+
+                                <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+
+                                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+
+                                </svg>
+
+                            </div>
+
+                            <div>
+
+                                <p class="text-[11px] uppercase tracking-widest text-white/30 mb-1">
+                                    Data nascimento
+                                </p>
+
+                                <p class="text-sm text-white/80">
+                                    {{ perfil.dataNascimento ?
+                                    (perfil.dataNascimento | date:'dd/MM/yyyy') :
+                                    'Não informado' }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BOTÕES -->
+                    <div class="flex flex-wrap gap-3 pt-2">
+
+                        <button
+                            class="px-5 py-3 rounded-2xl text-sm font-medium bg-gradient-to-br from-emerald-400 to-emerald-600 text-emerald-950 shadow-[0_6px_20px_rgba(52,211,153,0.25)] hover:shadow-[0_10px_30px_rgba(52,211,153,0.35)] hover:-translate-y-px transition-all duration-200 cursor-pointer">
+                            Adicionar amigo
+                        </button>
+
+                        <button
+                            class="px-5 py-3 rounded-2xl text-sm font-medium bg-white/[0.04] border border-white/[0.08] text-white/70 hover:bg-white/[0.06] hover:text-white transition-all duration-200 cursor-pointer">
+                            Compartilhar perfil
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AMIGOS / SOCIAL -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+
+            <!-- Amigos -->
+            <div class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 flex items-center gap-4">
+
+                <div
+                    class="w-11 h-11 rounded-xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center shrink-0">
+
+                    <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <p class="text-[11px] uppercase tracking-widest text-white/30 mb-1">
+                        Amigos
+                    </p>
+
+                    <p class="text-2xl font-bold text-white">
+                        {{ friends.length }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Chats -->
+            <div class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 flex items-center gap-4">
+
+                <div
+                    class="w-11 h-11 rounded-xl bg-blue-400/10 border border-blue-400/20 flex items-center justify-center shrink-0">
+
+                    <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <p class="text-[11px] uppercase tracking-widest text-white/30 mb-1">
+                        Chats
+                    </p>
+
+                    <p class="text-2xl font-bold text-white">
+                        {{ chats.length }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Tema -->
+            <div class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 flex items-center gap-4">
+
+                <div
+                    class="w-11 h-11 rounded-xl bg-purple-400/10 border border-purple-400/20 flex items-center justify-center shrink-0">
+
+                    <svg class="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3
+                     7 7 0 0 0 21 12.79z" />
+
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <p class="text-[11px] uppercase tracking-widest text-white/30 mb-1">
+                        Tema
+                    </p>
+
+                    <p class="text-sm font-semibold text-white/80 capitalize">
+                        {{ perfil.temaPreferido || 'dark' }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

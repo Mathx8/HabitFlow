@@ -209,9 +209,6 @@ export class ApiService {
     return this.http.delete(`${this.baseUrl}/api/chat/${chatId}`);
   }
 
-  // =========================
-  // MENSAGENS
-  // =========================
 
   enviarMensagem(chatId: string, conteudo: string): Observable<any> {
     return this.http.post(
@@ -226,5 +223,13 @@ export class ApiService {
   }
   buscarMensagens(chatId: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/mensagem/${chatId}`);
+  }
+
+  meuPerfil(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Usuario/me`);
+  }
+
+  verperfil(username: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Usuario/${username}/perfil`);
   }
 }
